@@ -1,0 +1,175 @@
+{
+  "metadata": {
+    "description": "UI configuration for the EU AI Act Compliance Checker",
+    "version": "1.0"
+  },
+  "app_config": {
+    "title": "EU AI Act Compliance Checker",
+    "description": "Determine your obligations under the EU Artificial Intelligence Act",
+    "version": "1.0",
+    "source": "Based on official EU compliance checker",
+    "disclaimer": "This tool provides guidance only. Consult legal professionals for compliance decisions."
+  },
+  "theme": {
+    "primary_color": "#003399",
+    "secondary_color": "#FFCC00",
+    "colors": {
+      "blue": "#0066cc",
+      "red": "#dc3545",
+      "gray": "#6c757d",
+      "green": "#28a745",
+      "darkred": "#8b0000"
+    },
+    "risk_level_colors": {
+      "prohibited": "#8b0000",
+      "systemic_risk": "#dc3545",
+      "high_risk": "#dc3545",
+      "limited_risk": "#ffc107",
+      "minimal_risk": "#28a745",
+      "obligations": "#0066cc",
+      "out_of_scope": "#6c757d",
+      "not_applicable": "#6c757d",
+      "general": "#0066cc",
+      "role_classification": "#0066cc"
+    }
+  },
+  "question_display": {
+    "show_progress_bar": true,
+    "show_question_numbers": true,
+    "show_section_titles": true,
+    "allow_back_navigation": true,
+    "show_help_text": false,
+    "animate_transitions": true,
+    "transition_duration_ms": 300
+  },
+  "navigation": {
+    "show_back_button": true,
+    "show_next_button": true,
+    "show_restart_button": true,
+    "back_button_text": "← Back",
+    "next_button_text": "Next →",
+    "restart_button_text": "↻ Start Over",
+    "view_results_button_text": "View Results"
+  },
+  "question_ui": {
+    "single_choice": {
+      "display_type": "radio_buttons",
+      "layout": "vertical"
+    },
+    "multiple_choice": {
+      "display_type": "checkboxes",
+      "layout": "vertical",
+      "show_select_all": false
+    }
+  },
+  "outcome_display": {
+    "show_risk_badge": true,
+    "show_article_references": true,
+    "show_priority_weights": false,
+    "show_flag_ids": false,
+    "group_by_structure_level": true,
+    "structure_level_order": ["role", "risk_level", "obligation"],
+    "show_export_button": true,
+    "export_formats": ["pdf", "json"],
+    "format_outcome_text": {
+      "parse_markdown": false,
+      "preserve_line_breaks": true,
+      "make_links_clickable": true
+    }
+  },
+  "risk_badges": {
+    "prohibited": {
+      "text": "🚫 PROHIBITED",
+      "color": "#8b0000",
+      "text_color": "#ffffff",
+      "description": "This AI practice is forbidden under the AI Act"
+    },
+    "systemic_risk": {
+      "text": "⚠️ SYSTEMIC RISK",
+      "color": "#dc3545",
+      "text_color": "#ffffff",
+      "description": "Highest obligations apply"
+    },
+    "high_risk": {
+      "text": "⚠️ HIGH RISK",
+      "color": "#dc3545",
+      "text_color": "#ffffff",
+      "description": "Strict obligations and conformity assessment required"
+    },
+    "limited_risk": {
+      "text": "ℹ️ LIMITED RISK",
+      "color": "#ffc107",
+      "text_color": "#000000",
+      "description": "Transparency obligations apply"
+    },
+    "minimal_risk": {
+      "text": "✓ MINIMAL RISK",
+      "color": "#28a745",
+      "text_color": "#ffffff",
+      "description": "Limited obligations"
+    },
+    "obligations": {
+      "text": "📋 OBLIGATIONS",
+      "color": "#0066cc",
+      "text_color": "#ffffff",
+      "description": "Specific requirements apply"
+    },
+    "out_of_scope": {
+      "text": "○ OUT OF SCOPE",
+      "color": "#6c757d",
+      "text_color": "#ffffff",
+      "description": "Not covered by the AI Act"
+    },
+    "not_applicable": {
+      "text": "○ NOT APPLICABLE",
+      "color": "#6c757d",
+      "text_color": "#ffffff",
+      "description": "Requirements do not apply"
+    }
+  },
+  "structure_level_headers": {
+    "role": "Your Role",
+    "risk_level": "Risk Classification",
+    "obligation": "Your Obligations"
+  },
+  "help_text": {
+    "Q1": "An AI model is the algorithmic component (e.g., a neural network). An AI system includes the model plus its deployment context (data, hardware, interfaces).",
+    "QGPAI_1": "A general-purpose AI model (GPAI) can perform a wide variety of tasks without being specifically designed for any single use case. Examples include large language models like GPT or Claude.",
+    "QGPAI_2": "High-impact capabilities typically include: very large parameter counts (e.g., >10 billion), exceptional performance across diverse benchmarks, or capabilities that could have significant societal impact.",
+    "QAIS_5": "These practices are completely prohibited under Article 5 of the AI Act. If your system performs any of these functions, it cannot be placed on the market or used in the EU.",
+    "QAIS_6_4": "High-risk areas are defined in Annex III of the AI Act. Systems in these areas are subject to strict requirements including conformity assessment before market placement."
+  },
+  "warnings": {
+    "prohibited_practices": {
+      "show": true,
+      "text": "⚠️ Warning: Selecting any prohibited practice (except 'None') will result in a PROHIBITED classification. These AI systems cannot be used in the EU.",
+      "color": "#8b0000"
+    },
+    "high_risk_areas": {
+      "show": true,
+      "text": "ℹ️ Note: Systems in Annex III areas are classified as high-risk and subject to strict requirements.",
+      "color": "#0066cc"
+    }
+  },
+  "loading": {
+    "spinner_type": "dots",
+    "loading_text": "Analyzing your responses...",
+    "show_loading_screen": true
+  },
+  "accessibility": {
+    "keyboard_navigation": true,
+    "screen_reader_support": true,
+    "high_contrast_mode": false,
+    "focus_indicators": true
+  },
+  "responsive": {
+    "mobile_breakpoint": 768,
+    "tablet_breakpoint": 1024,
+    "desktop_breakpoint": 1280
+  },
+  "analytics": {
+    "track_question_views": false,
+    "track_answer_selections": false,
+    "track_outcome_results": false
+  }
+}

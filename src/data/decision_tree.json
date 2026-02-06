@@ -1,0 +1,4089 @@
+{
+  "metadata": {
+    "source": "EU AI Act Compliance Checker",
+    "url": "https://ai-act-service-desk.ec.europa.eu/en/eu-ai-act-compliance-checker",
+    "last_update_date": "2025-12-05",
+    "scraped_date": "2026-02-06",
+    "description": "Decision tree navigation logic. Routes are evaluated in order; first matching route is taken. 'END' means show results based on accumulated flags."
+  },
+  "start": "Q1",
+  "nodes": {
+    "Q1": {
+      "original_id": "Q1",
+      "question_id": "Q1",
+      "type": "radio",
+      "routing": [
+        {
+          "conditions": [
+            {
+              "answer_is": 0
+            }
+          ],
+          "go_to": "QGPAI_1"
+        },
+        {
+          "conditions": [
+            {
+              "answer_is": 1
+            }
+          ],
+          "go_to": "QAIS_1"
+        }
+      ],
+      "answer_flags": {
+        "0": {},
+        "1": {
+          "set_flags": [
+            {
+              "flag_name": "flag_risklevel_aisystem_highrisk_output",
+              "value": false
+            },
+            {
+              "flag_name": "flag_obligation_transparency_provider",
+              "value": false
+            },
+            {
+              "flag_name": "flag_obligation_transparency_deployer",
+              "value": false
+            },
+            {
+              "flag_name": "critical_infrastructure",
+              "value": false
+            }
+          ]
+        }
+      }
+    },
+    "QAIS_1_1": {
+      "original_id": "QAIS 1.1",
+      "question_id": "QAIS_1_1",
+      "type": "checkbox",
+      "routing": [
+        {
+          "conditions": [
+            {
+              "is_this_exact_match_selected": [
+                0,
+                1,
+                3,
+                4
+              ]
+            }
+          ],
+          "go_to": "QAIS_2",
+          "set_flags": [
+            {
+              "flag_name": "flag_risklevel_aisystem_output",
+              "value": true
+            }
+          ]
+        },
+        {
+          "conditions": [
+            {
+              "is_this_exact_match_selected": [
+                0,
+                1,
+                2,
+                3,
+                4
+              ]
+            }
+          ],
+          "go_to": "QAIS_2",
+          "set_flags": [
+            {
+              "flag_name": "flag_risklevel_aisystem_output",
+              "value": true
+            }
+          ]
+        },
+        {
+          "go_to": "END",
+          "set_flags": [
+            {
+              "flag_name": "flag_ai_system_outsidescope",
+              "value": true
+            }
+          ]
+        }
+      ],
+      "answer_flags": {
+        "0": {},
+        "1": {},
+        "2": {},
+        "3": {},
+        "4": {},
+        "5": {
+          "exclusive": true
+        }
+      }
+    },
+    "QAIS_1": {
+      "original_id": "QAIS 1",
+      "question_id": "QAIS_1",
+      "type": "radio",
+      "routing": [
+        {
+          "conditions": [
+            {
+              "answer_is": 0
+            }
+          ],
+          "go_to": "QAIS_2"
+        },
+        {
+          "conditions": [
+            {
+              "answer_is": 1
+            }
+          ],
+          "go_to": "END"
+        },
+        {
+          "conditions": [
+            {
+              "answer_is": 2
+            }
+          ],
+          "go_to": "QAIS_1_1"
+        }
+      ],
+      "answer_flags": {
+        "0": {
+          "set_flags": [
+            {
+              "flag_name": "flag_risklevel_aisystem_output",
+              "value": true
+            }
+          ]
+        },
+        "1": {
+          "set_flags": [
+            {
+              "flag_name": "flag_ai_system_outsidescope",
+              "value": true
+            }
+          ]
+        },
+        "2": {}
+      }
+    },
+    "QAIS_2_1": {
+      "original_id": "QAIS 2.1",
+      "question_id": "QAIS_2_1",
+      "type": "checkbox",
+      "routing": [
+        {
+          "conditions": [
+            {
+              "if_any_answer_in": [
+                0,
+                1,
+                2
+              ]
+            }
+          ],
+          "go_to": "QAIS_3"
+        },
+        {
+          "conditions": [
+            {
+              "flag_equals": {
+                "flag_name": "flag_ai_system_role",
+                "value": "deployer"
+              }
+            }
+          ],
+          "go_to": "QAIS_3"
+        },
+        {
+          "conditions": [
+            {
+              "flag_equals": {
+                "flag_name": "flag_ai_system_role",
+                "value": "importer"
+              }
+            }
+          ],
+          "go_to": "QAIS_3"
+        },
+        {
+          "conditions": [
+            {
+              "flag_equals": {
+                "flag_name": "flag_ai_system_role",
+                "value": "distributor"
+              }
+            }
+          ],
+          "go_to": "QAIS_3"
+        },
+        {
+          "conditions": [
+            {
+              "answer_is": 3
+            }
+          ],
+          "go_to": "QAIS_2_2"
+        }
+      ],
+      "answer_flags": {
+        "0": {
+          "set_flags": [
+            {
+              "flag_name": "flag_ai_system_role",
+              "value": "provider"
+            },
+            {
+              "flag_name": "flag_role_distriimportdeployer_becomeprovider_result",
+              "value": true
+            }
+          ]
+        },
+        "1": {
+          "set_flags": [
+            {
+              "flag_name": "flag_ai_system_role",
+              "value": "provider"
+            },
+            {
+              "flag_name": "flag_role_distriimportdeployer_becomeprovider_result",
+              "value": true
+            }
+          ]
+        },
+        "2": {
+          "set_flags": [
+            {
+              "flag_name": "flag_ai_system_role",
+              "value": "provider"
+            },
+            {
+              "flag_name": "flag_role_distriimportdeployer_becomeprovider_result",
+              "value": true
+            }
+          ]
+        },
+        "3": {
+          "exclusive": true
+        }
+      }
+    },
+    "QAIS_2_2": {
+      "original_id": "QAIS 2.2",
+      "question_id": "QAIS_2_2",
+      "type": "checkbox",
+      "routing": [
+        {
+          "conditions": [
+            {
+              "if_any_answer_in": [
+                0,
+                1
+              ]
+            }
+          ],
+          "go_to": "QAIS_3"
+        },
+        {
+          "conditions": [
+            {
+              "answer_is": 2
+            }
+          ],
+          "go_to": "END"
+        }
+      ],
+      "answer_flags": {
+        "0": {
+          "set_flags": [
+            {
+              "flag_name": "flag_ai_system_role",
+              "value": "provider"
+            },
+            {
+              "flag_name": "flag_role_manutoprovider_output",
+              "value": true
+            }
+          ]
+        },
+        "1": {
+          "set_flags": [
+            {
+              "flag_name": "flag_ai_system_role",
+              "value": "provider"
+            },
+            {
+              "flag_name": "flag_role_manutoprovider_output",
+              "value": true
+            }
+          ]
+        },
+        "2": {
+          "set_flags": [
+            {
+              "flag_name": "flag_risklevel_aisystem_output",
+              "value": false
+            },
+            {
+              "flag_name": "flag_outofscope",
+              "value": true
+            },
+            {
+              "flag_name": "flag_ai_system_obligations_productmanufacturer",
+              "value": true
+            }
+          ],
+          "exclusive": true
+        }
+      }
+    },
+    "QAIS_2": {
+      "original_id": "QAIS 2",
+      "question_id": "QAIS_2",
+      "type": "radio",
+      "routing": [
+        {
+          "conditions": [
+            {
+              "answer_is": 0
+            }
+          ],
+          "go_to": "QAIS_3"
+        },
+        {
+          "conditions": [
+            {
+              "answer_is": 1
+            }
+          ],
+          "go_to": "QAIS_2_1"
+        },
+        {
+          "conditions": [
+            {
+              "answer_is": 2
+            }
+          ],
+          "go_to": "QAIS_2_1"
+        },
+        {
+          "conditions": [
+            {
+              "answer_is": 3
+            }
+          ],
+          "go_to": "QAIS_2_1"
+        },
+        {
+          "conditions": [
+            {
+              "answer_is": 4
+            }
+          ],
+          "go_to": "QAIS_3"
+        },
+        {
+          "conditions": [
+            {
+              "answer_is": 5
+            }
+          ],
+          "go_to": "QAIS_2_2"
+        },
+        {
+          "conditions": [
+            {
+              "answer_is": 6
+            }
+          ],
+          "go_to": "END"
+        }
+      ],
+      "answer_flags": {
+        "0": {
+          "set_flags": [
+            {
+              "flag_name": "flag_ai_system_role",
+              "value": "provider"
+            },
+            {
+              "flag_name": "flag_ai_initial_system_role",
+              "value": "provider"
+            }
+          ]
+        },
+        "1": {
+          "set_flags": [
+            {
+              "flag_name": "flag_ai_system_role",
+              "value": "deployer"
+            },
+            {
+              "flag_name": "flag_ai_initial_system_role",
+              "value": "deployer"
+            }
+          ]
+        },
+        "2": {
+          "set_flags": [
+            {
+              "flag_name": "flag_ai_system_role",
+              "value": "importer"
+            },
+            {
+              "flag_name": "flag_ai_initial_system_role",
+              "value": "importer"
+            }
+          ]
+        },
+        "3": {
+          "set_flags": [
+            {
+              "flag_name": "flag_ai_system_role",
+              "value": "distributor"
+            },
+            {
+              "flag_name": "flag_ai_initial_system_role",
+              "value": "distributor"
+            }
+          ]
+        },
+        "4": {
+          "set_flags": [
+            {
+              "flag_name": "flag_ai_system_role",
+              "value": "authorisedrepre"
+            },
+            {
+              "flag_name": "flag_ai_initial_system_role",
+              "value": "authorisedrepre"
+            }
+          ]
+        },
+        "5": {
+          "set_flags": [
+            {
+              "flag_name": "flag_ai_system_role",
+              "value": "productmanufacturer"
+            },
+            {
+              "flag_name": "flag_ai_initial_system_role",
+              "value": "productmanufacturer"
+            }
+          ]
+        },
+        "6": {
+          "set_flags": [
+            {
+              "flag_name": "flag_aisystem_role_and_obligation_outofscope",
+              "value": true
+            },
+            {
+              "flag_name": "flag_risklevel_aisystem_output",
+              "value": false
+            }
+          ]
+        }
+      }
+    },
+    "QAIS_3": {
+      "original_id": "QAIS 3",
+      "question_id": "QAIS_3",
+      "type": "checkbox",
+      "routing": [
+        {
+          "conditions": [
+            {
+              "if_any_answer_in": [
+                0,
+                1,
+                2,
+                3
+              ]
+            }
+          ],
+          "go_to": "QAIS_4"
+        },
+        {
+          "conditions": [
+            {
+              "answer_is": 4
+            }
+          ],
+          "go_to": "END"
+        }
+      ],
+      "answer_flags": {
+        "0": {},
+        "1": {},
+        "2": {},
+        "3": {},
+        "4": {
+          "set_flags": [
+            {
+              "flag_name": "flag_outofscope",
+              "value": true
+            },
+            {
+              "flag_name": "flag_risklevel_aisystem_output",
+              "value": false
+            }
+          ],
+          "exclusive": true
+        }
+      }
+    },
+    "QAIS_4": {
+      "original_id": "QAIS 4",
+      "question_id": "QAIS_4",
+      "type": "checkbox",
+      "routing": [
+        {
+          "conditions": [
+            {
+              "if_any_answer_in": [
+                0,
+                1,
+                2,
+                3
+              ]
+            }
+          ],
+          "go_to": "END"
+        },
+        {
+          "conditions": [
+            {
+              "answer_is": 4
+            }
+          ],
+          "go_to": "QAIS_5",
+          "set_flags": [
+            {
+              "flag_name": "flag_risklevel_aisystem_highrisk_output",
+              "value": false
+            },
+            {
+              "flag_name": "is_ai_highrisk_permanent",
+              "value": false
+            }
+          ]
+        }
+      ],
+      "answer_flags": {
+        "0": {
+          "set_flags": [
+            {
+              "flag_name": "flag_aisystem_obligations_exclusions_output",
+              "value": true
+            },
+            {
+              "flag_name": "flag_risklevel_aisystem_output",
+              "value": false
+            }
+          ]
+        },
+        "1": {
+          "set_flags": [
+            {
+              "flag_name": "flag_aisystem_obligations_exclusions_output",
+              "value": true
+            },
+            {
+              "flag_name": "flag_risklevel_aisystem_output",
+              "value": false
+            }
+          ]
+        },
+        "2": {
+          "set_flags": [
+            {
+              "flag_name": "flag_aisystem_obligations_exclusions_output",
+              "value": true
+            },
+            {
+              "flag_name": "flag_risklevel_aisystem_output",
+              "value": false
+            }
+          ]
+        },
+        "3": {
+          "set_flags": [
+            {
+              "flag_name": "flag_aisystem_obligations_exclusions_output",
+              "value": true
+            },
+            {
+              "flag_name": "flag_risklevel_aisystem_output",
+              "value": false
+            }
+          ]
+        },
+        "4": {
+          "exclusive": true
+        }
+      }
+    },
+    "QAIS_5": {
+      "original_id": "QAIS 5",
+      "question_id": "QAIS_5",
+      "type": "checkbox",
+      "routing": [
+        {
+          "conditions": [
+            {
+              "if_any_answer_in": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ]
+            }
+          ],
+          "go_to": "END"
+        },
+        {
+          "conditions": [
+            {
+              "answer_is": 8
+            }
+          ],
+          "go_to": "QAIS_6"
+        }
+      ],
+      "answer_flags": {
+        "0": {
+          "set_flags": [
+            {
+              "flag_name": "flag_obligations_prohibitedsystems_result_output",
+              "value": true
+            }
+          ]
+        },
+        "1": {
+          "set_flags": [
+            {
+              "flag_name": "flag_obligations_prohibitedsystems_result_output",
+              "value": true
+            }
+          ]
+        },
+        "2": {
+          "set_flags": [
+            {
+              "flag_name": "flag_obligations_prohibitedsystems_result_output",
+              "value": true
+            }
+          ]
+        },
+        "3": {
+          "set_flags": [
+            {
+              "flag_name": "flag_obligations_prohibitedsystems_result_output",
+              "value": true
+            }
+          ]
+        },
+        "4": {
+          "set_flags": [
+            {
+              "flag_name": "flag_obligations_prohibitedsystems_result_output",
+              "value": true
+            }
+          ]
+        },
+        "5": {
+          "set_flags": [
+            {
+              "flag_name": "flag_obligations_prohibitedsystems_result_output",
+              "value": true
+            }
+          ]
+        },
+        "6": {
+          "set_flags": [
+            {
+              "flag_name": "flag_obligations_prohibitedsystems_result_output",
+              "value": true
+            }
+          ]
+        },
+        "7": {
+          "set_flags": [
+            {
+              "flag_name": "flag_obligations_prohibitedsystems_result_output",
+              "value": true
+            }
+          ]
+        },
+        "8": {
+          "set_flags": [
+            {
+              "condition": [
+                {
+                  "flag_equals": {
+                    "flag_name": "flag_ai_system_role",
+                    "value": "provider"
+                  }
+                }
+              ],
+              "flag_name": "flag_obligations_provideranddeployer_ailiteracy",
+              "value": true
+            },
+            {
+              "condition": [
+                {
+                  "flag_equals": {
+                    "flag_name": "flag_ai_system_role",
+                    "value": "deployer"
+                  }
+                }
+              ],
+              "flag_name": "flag_obligations_provideranddeployer_ailiteracy",
+              "value": true
+            }
+          ],
+          "exclusive": true
+        }
+      }
+    },
+    "QAIS_6_1": {
+      "original_id": "QAIS 6.1",
+      "question_id": "QAIS_6_1",
+      "type": "checkbox",
+      "routing": [
+        {
+          "conditions": [
+            {
+              "if_any_answer_in": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11
+              ]
+            }
+          ],
+          "go_to": "QAIS_6_2",
+          "set_flags": [
+            {
+              "flag_name": "qais_6_1_annex1_sectiona_responded_yes_to_at_least_one_section",
+              "value": true
+            }
+          ]
+        },
+        {
+          "conditions": [
+            {
+              "answer_is": 12
+            },
+            {
+              "flag_equals": {
+                "flag_name": "flag_ai_initial_system_role",
+                "value": "provider"
+              }
+            }
+          ],
+          "go_to": "QAIS_6_3"
+        },
+        {
+          "conditions": [
+            {
+              "answer_is": 12
+            }
+          ],
+          "go_to": "QAIS_6_2"
+        }
+      ],
+      "answer_flags": {
+        "0": {},
+        "1": {},
+        "2": {},
+        "3": {},
+        "4": {},
+        "5": {},
+        "6": {},
+        "7": {},
+        "8": {},
+        "9": {},
+        "10": {},
+        "11": {},
+        "12": {
+          "exclusive": true
+        }
+      }
+    },
+    "QAIS_6_2": {
+      "original_id": "QAIS 6.2",
+      "question_id": "QAIS_6_2",
+      "type": "radio",
+      "routing": [
+        {
+          "conditions": [
+            {
+              "answer_is": 0
+            },
+            {
+              "flag_equals": {
+                "flag_name": "flag_rooting_yes_at_QAIS_6_3",
+                "value": true
+              }
+            }
+          ],
+          "go_to": "END",
+          "set_flags": [
+            {
+              "flag_name": "flag_obligations_provider_section_b_results_high_risk",
+              "value": true
+            }
+          ]
+        },
+        {
+          "conditions": [
+            {
+              "flag_equals": {
+                "flag_name": "qais_6_1_annex1_sectiona_responded_yes_to_at_least_one_section",
+                "value": true
+              }
+            }
+          ],
+          "go_to": "QAIS_6_4"
+        },
+        {
+          "conditions": [
+            {
+              "answer_is": 0
+            },
+            {
+              "flag_equals": {
+                "flag_name": "flag_ai_system_role",
+                "value": "provider"
+              }
+            }
+          ],
+          "go_to": "QAIS_7_1",
+          "set_flags": [
+            {
+              "flag_name": "flag_obligations_provider_section_b_results_high_risk",
+              "value": true
+            },
+            {
+              "flag_name": "flag_obligations_provider_results_high_risk",
+              "value": false
+            }
+          ]
+        },
+        {
+          "go_to": "QAIS_6_4"
+        }
+      ],
+      "answer_flags": {
+        "0": {
+          "set_flags": [
+            {
+              "flag_name": "flag_risklevel_aisystem_highrisk_output",
+              "value": true
+            },
+            {
+              "flag_name": "is_ai_highrisk_permanent",
+              "value": true
+            },
+            {
+              "condition": [
+                {
+                  "flag_equals": {
+                    "flag_name": "flag_ai_system_role",
+                    "value": "provider"
+                  }
+                }
+              ],
+              "flag_name": "flag_obligations_provider_results_high_risk",
+              "value": true
+            },
+            {
+              "condition": [
+                {
+                  "flag_equals": {
+                    "flag_name": "flag_ai_system_role",
+                    "value": "authorisedrepre"
+                  }
+                }
+              ],
+              "flag_name": "flag_obligations_authorisdrepre_results_high_risk",
+              "value": true
+            },
+            {
+              "condition": [
+                {
+                  "flag_equals": {
+                    "flag_name": "flag_ai_system_role",
+                    "value": "importer"
+                  }
+                }
+              ],
+              "flag_name": "flag_obligations_importer_output",
+              "value": true
+            },
+            {
+              "condition": [
+                {
+                  "flag_equals": {
+                    "flag_name": "flag_ai_system_role",
+                    "value": "distributor"
+                  }
+                }
+              ],
+              "flag_name": "flag_obligations_distributor_output",
+              "value": true
+            },
+            {
+              "condition": [
+                {
+                  "flag_equals": {
+                    "flag_name": "flag_ai_system_role",
+                    "value": "deployer"
+                  }
+                }
+              ],
+              "flag_name": "flag_obligations_deployer_output",
+              "value": true
+            },
+            {
+              "condition": [
+                {
+                  "flag_equals": {
+                    "flag_name": "flag_rooting_yes_at_QAIS_6_3",
+                    "value": true
+                  }
+                }
+              ],
+              "flag_name": "flag_obligations_provider_results_high_risk",
+              "value": false
+            }
+          ]
+        },
+        "1": {}
+      }
+    },
+    "QAIS_6_3": {
+      "original_id": "QAIS 6.3",
+      "question_id": "QAIS_6_3",
+      "type": "checkbox",
+      "routing": [
+        {
+          "conditions": [
+            {
+              "if_any_answer_in": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6
+              ]
+            }
+          ],
+          "go_to": "QAIS_6_2",
+          "set_flags": [
+            {
+              "flag_name": "flag_rooting_yes_at_QAIS_6_3",
+              "value": true
+            }
+          ]
+        },
+        {
+          "conditions": [
+            {
+              "answer_is": 7
+            }
+          ],
+          "go_to": "QAIS_6_4"
+        }
+      ],
+      "answer_flags": {
+        "0": {},
+        "1": {},
+        "2": {},
+        "3": {},
+        "4": {},
+        "5": {},
+        "6": {},
+        "7": {
+          "exclusive": true
+        }
+      }
+    },
+    "QAIS_6_4_1": {
+      "original_id": "QAIS 6.4.1",
+      "question_id": "QAIS_6_4_1",
+      "type": "checkbox",
+      "routing": [
+        {
+          "conditions": [
+            {
+              "if_any_answer_in": [
+                0,
+                1,
+                2
+              ]
+            },
+            {
+              "flag_equals": {
+                "flag_name": "is_ai_highrisk_permanent",
+                "value": false
+              }
+            }
+          ],
+          "go_to": "QAIS_6_5"
+        },
+        {
+          "conditions": [
+            {
+              "flag_equals": {
+                "flag_name": "flag_should_ask_6_4_2",
+                "value": true
+              }
+            }
+          ],
+          "go_to": "QAIS_6_4_2",
+          "set_flags": [
+            {
+              "flag_name": "flag_should_ask_6_4_2",
+              "value": false
+            }
+          ]
+        },
+        {
+          "conditions": [
+            {
+              "flag_equals": {
+                "flag_name": "flag_should_ask_6_4_3",
+                "value": true
+              }
+            }
+          ],
+          "go_to": "QAIS_6_4_3",
+          "set_flags": [
+            {
+              "flag_name": "flag_should_ask_6_4_3",
+              "value": false
+            }
+          ]
+        },
+        {
+          "conditions": [
+            {
+              "flag_equals": {
+                "flag_name": "flag_should_ask_6_4_4",
+                "value": true
+              }
+            }
+          ],
+          "go_to": "QAIS_6_4_4",
+          "set_flags": [
+            {
+              "flag_name": "flag_should_ask_6_4_4",
+              "value": false
+            }
+          ]
+        },
+        {
+          "conditions": [
+            {
+              "flag_equals": {
+                "flag_name": "flag_should_ask_6_4_5",
+                "value": true
+              }
+            }
+          ],
+          "go_to": "QAIS_6_4_5",
+          "set_flags": [
+            {
+              "flag_name": "flag_should_ask_6_4_5",
+              "value": false
+            }
+          ]
+        },
+        {
+          "conditions": [
+            {
+              "flag_equals": {
+                "flag_name": "flag_should_ask_6_4_6",
+                "value": true
+              }
+            }
+          ],
+          "go_to": "QAIS_6_4_6",
+          "set_flags": [
+            {
+              "flag_name": "flag_should_ask_6_4_6",
+              "value": false
+            }
+          ]
+        },
+        {
+          "conditions": [
+            {
+              "flag_equals": {
+                "flag_name": "flag_should_ask_6_4_7",
+                "value": true
+              }
+            }
+          ],
+          "go_to": "QAIS_6_4_7",
+          "set_flags": [
+            {
+              "flag_name": "flag_should_ask_6_4_7",
+              "value": false
+            }
+          ]
+        },
+        {
+          "go_to": "QAIS_6_hub_evaluation_risk"
+        }
+      ],
+      "answer_flags": {
+        "0": {
+          "set_flags": [
+            {
+              "flag_name": "flag_risklevel_aisystem_highrisk_output",
+              "value": true
+            },
+            {
+              "condition": [
+                {
+                  "flag_equals": {
+                    "flag_name": "flag_ai_system_role",
+                    "value": "deployer"
+                  }
+                }
+              ],
+              "flag_name": "flag_fr_impact_assessment_deployer",
+              "value": true
+            }
+          ]
+        },
+        "1": {
+          "set_flags": [
+            {
+              "flag_name": "flag_risklevel_aisystem_highrisk_output",
+              "value": true
+            },
+            {
+              "condition": [
+                {
+                  "flag_equals": {
+                    "flag_name": "flag_ai_system_role",
+                    "value": "deployer"
+                  }
+                }
+              ],
+              "flag_name": "flag_fr_impact_assessment_deployer",
+              "value": true
+            }
+          ]
+        },
+        "2": {
+          "set_flags": [
+            {
+              "flag_name": "flag_risklevel_aisystem_highrisk_output",
+              "value": true
+            },
+            {
+              "condition": [
+                {
+                  "flag_equals": {
+                    "flag_name": "flag_ai_system_role",
+                    "value": "deployer"
+                  }
+                }
+              ],
+              "flag_name": "flag_fr_impact_assessment_deployer",
+              "value": true
+            }
+          ]
+        },
+        "3": {
+          "exclusive": true
+        }
+      }
+    },
+    "QAIS_6_4_2": {
+      "original_id": "QAIS 6.4.2",
+      "question_id": "QAIS_6_4_2",
+      "type": "checkbox",
+      "routing": [
+        {
+          "conditions": [
+            {
+              "if_any_answer_in": [
+                0,
+                1,
+                2,
+                3
+              ]
+            },
+            {
+              "flag_equals": {
+                "flag_name": "is_ai_highrisk_permanent",
+                "value": false
+              }
+            }
+          ],
+          "go_to": "QAIS_6_5"
+        },
+        {
+          "conditions": [
+            {
+              "flag_equals": {
+                "flag_name": "flag_should_ask_6_4_2",
+                "value": true
+              }
+            }
+          ],
+          "go_to": "QAIS_6_4_2",
+          "set_flags": [
+            {
+              "flag_name": "flag_should_ask_6_4_2",
+              "value": false
+            }
+          ]
+        },
+        {
+          "conditions": [
+            {
+              "flag_equals": {
+                "flag_name": "flag_should_ask_6_4_3",
+                "value": true
+              }
+            }
+          ],
+          "go_to": "QAIS_6_4_3",
+          "set_flags": [
+            {
+              "flag_name": "flag_should_ask_6_4_3",
+              "value": false
+            }
+          ]
+        },
+        {
+          "conditions": [
+            {
+              "flag_equals": {
+                "flag_name": "flag_should_ask_6_4_4",
+                "value": true
+              }
+            }
+          ],
+          "go_to": "QAIS_6_4_4",
+          "set_flags": [
+            {
+              "flag_name": "flag_should_ask_6_4_4",
+              "value": false
+            }
+          ]
+        },
+        {
+          "conditions": [
+            {
+              "flag_equals": {
+                "flag_name": "flag_should_ask_6_4_5",
+                "value": true
+              }
+            }
+          ],
+          "go_to": "QAIS_6_4_5",
+          "set_flags": [
+            {
+              "flag_name": "flag_should_ask_6_4_5",
+              "value": false
+            }
+          ]
+        },
+        {
+          "conditions": [
+            {
+              "flag_equals": {
+                "flag_name": "flag_should_ask_6_4_6",
+                "value": true
+              }
+            }
+          ],
+          "go_to": "QAIS_6_4_6",
+          "set_flags": [
+            {
+              "flag_name": "flag_should_ask_6_4_6",
+              "value": false
+            }
+          ]
+        },
+        {
+          "conditions": [
+            {
+              "flag_equals": {
+                "flag_name": "flag_should_ask_6_4_7",
+                "value": true
+              }
+            }
+          ],
+          "go_to": "QAIS_6_4_7",
+          "set_flags": [
+            {
+              "flag_name": "flag_should_ask_6_4_7",
+              "value": false
+            }
+          ]
+        },
+        {
+          "go_to": "QAIS_6_hub_evaluation_risk"
+        }
+      ],
+      "answer_flags": {
+        "0": {
+          "set_flags": [
+            {
+              "flag_name": "flag_risklevel_aisystem_highrisk_output",
+              "value": true
+            },
+            {
+              "condition": [
+                {
+                  "flag_equals": {
+                    "flag_name": "flag_ai_system_role",
+                    "value": "deployer"
+                  }
+                }
+              ],
+              "flag_name": "flag_fr_impact_assessment_deployer",
+              "value": true
+            }
+          ]
+        },
+        "1": {
+          "set_flags": [
+            {
+              "flag_name": "flag_risklevel_aisystem_highrisk_output",
+              "value": true
+            },
+            {
+              "condition": [
+                {
+                  "flag_equals": {
+                    "flag_name": "flag_ai_system_role",
+                    "value": "deployer"
+                  }
+                }
+              ],
+              "flag_name": "flag_fr_impact_assessment_deployer",
+              "value": true
+            }
+          ]
+        },
+        "2": {
+          "set_flags": [
+            {
+              "flag_name": "flag_risklevel_aisystem_highrisk_output",
+              "value": true
+            },
+            {
+              "condition": [
+                {
+                  "flag_equals": {
+                    "flag_name": "flag_ai_system_role",
+                    "value": "deployer"
+                  }
+                }
+              ],
+              "flag_name": "flag_fr_impact_assessment_deployer",
+              "value": true
+            }
+          ]
+        },
+        "3": {
+          "set_flags": [
+            {
+              "flag_name": "flag_risklevel_aisystem_highrisk_output",
+              "value": true
+            },
+            {
+              "condition": [
+                {
+                  "flag_equals": {
+                    "flag_name": "flag_ai_system_role",
+                    "value": "deployer"
+                  }
+                }
+              ],
+              "flag_name": "flag_fr_impact_assessment_deployer",
+              "value": true
+            }
+          ]
+        },
+        "4": {
+          "exclusive": true
+        }
+      }
+    },
+    "QAIS_6_4_3": {
+      "original_id": "QAIS 6.4.3",
+      "question_id": "QAIS_6_4_3",
+      "type": "checkbox",
+      "routing": [
+        {
+          "conditions": [
+            {
+              "if_any_answer_in": [
+                0,
+                1
+              ]
+            },
+            {
+              "flag_equals": {
+                "flag_name": "is_ai_highrisk_permanent",
+                "value": false
+              }
+            }
+          ],
+          "go_to": "QAIS_6_5"
+        },
+        {
+          "conditions": [
+            {
+              "flag_equals": {
+                "flag_name": "flag_should_ask_6_4_2",
+                "value": true
+              }
+            }
+          ],
+          "go_to": "QAIS_6_4_2",
+          "set_flags": [
+            {
+              "flag_name": "flag_should_ask_6_4_2",
+              "value": false
+            }
+          ]
+        },
+        {
+          "conditions": [
+            {
+              "flag_equals": {
+                "flag_name": "flag_should_ask_6_4_3",
+                "value": true
+              }
+            }
+          ],
+          "go_to": "QAIS_6_4_3",
+          "set_flags": [
+            {
+              "flag_name": "flag_should_ask_6_4_3",
+              "value": false
+            }
+          ]
+        },
+        {
+          "conditions": [
+            {
+              "flag_equals": {
+                "flag_name": "flag_should_ask_6_4_4",
+                "value": true
+              }
+            }
+          ],
+          "go_to": "QAIS_6_4_4",
+          "set_flags": [
+            {
+              "flag_name": "flag_should_ask_6_4_4",
+              "value": false
+            }
+          ]
+        },
+        {
+          "conditions": [
+            {
+              "flag_equals": {
+                "flag_name": "flag_should_ask_6_4_5",
+                "value": true
+              }
+            }
+          ],
+          "go_to": "QAIS_6_4_5",
+          "set_flags": [
+            {
+              "flag_name": "flag_should_ask_6_4_5",
+              "value": false
+            }
+          ]
+        },
+        {
+          "conditions": [
+            {
+              "flag_equals": {
+                "flag_name": "flag_should_ask_6_4_6",
+                "value": true
+              }
+            }
+          ],
+          "go_to": "QAIS_6_4_6",
+          "set_flags": [
+            {
+              "flag_name": "flag_should_ask_6_4_6",
+              "value": false
+            }
+          ]
+        },
+        {
+          "conditions": [
+            {
+              "flag_equals": {
+                "flag_name": "flag_should_ask_6_4_7",
+                "value": true
+              }
+            }
+          ],
+          "go_to": "QAIS_6_4_7",
+          "set_flags": [
+            {
+              "flag_name": "flag_should_ask_6_4_7",
+              "value": false
+            }
+          ]
+        },
+        {
+          "go_to": "QAIS_6_hub_evaluation_risk"
+        }
+      ],
+      "answer_flags": {
+        "0": {
+          "set_flags": [
+            {
+              "flag_name": "flag_risklevel_aisystem_highrisk_output",
+              "value": true
+            },
+            {
+              "condition": [
+                {
+                  "flag_equals": {
+                    "flag_name": "flag_ai_system_role",
+                    "value": "deployer"
+                  }
+                }
+              ],
+              "flag_name": "flag_fr_impact_assessment_deployer",
+              "value": true
+            }
+          ]
+        },
+        "1": {
+          "set_flags": [
+            {
+              "flag_name": "flag_risklevel_aisystem_highrisk_output",
+              "value": true
+            },
+            {
+              "condition": [
+                {
+                  "flag_equals": {
+                    "flag_name": "flag_ai_system_role",
+                    "value": "deployer"
+                  }
+                }
+              ],
+              "flag_name": "flag_fr_impact_assessment_deployer",
+              "value": true
+            }
+          ]
+        },
+        "2": {
+          "exclusive": true
+        }
+      }
+    },
+    "QAIS_6_4_4": {
+      "original_id": "QAIS 6.4.4",
+      "question_id": "QAIS_6_4_4",
+      "type": "checkbox",
+      "routing": [
+        {
+          "conditions": [
+            {
+              "if_any_answer_in": [
+                0,
+                1,
+                2,
+                3
+              ]
+            },
+            {
+              "flag_equals": {
+                "flag_name": "is_ai_highrisk_permanent",
+                "value": false
+              }
+            }
+          ],
+          "go_to": "QAIS_6_5"
+        },
+        {
+          "conditions": [
+            {
+              "flag_equals": {
+                "flag_name": "flag_should_ask_6_4_2",
+                "value": true
+              }
+            }
+          ],
+          "go_to": "QAIS_6_4_2",
+          "set_flags": [
+            {
+              "flag_name": "flag_should_ask_6_4_2",
+              "value": false
+            }
+          ]
+        },
+        {
+          "conditions": [
+            {
+              "flag_equals": {
+                "flag_name": "flag_should_ask_6_4_3",
+                "value": true
+              }
+            }
+          ],
+          "go_to": "QAIS_6_4_3",
+          "set_flags": [
+            {
+              "flag_name": "flag_should_ask_6_4_3",
+              "value": false
+            }
+          ]
+        },
+        {
+          "conditions": [
+            {
+              "flag_equals": {
+                "flag_name": "flag_should_ask_6_4_4",
+                "value": true
+              }
+            }
+          ],
+          "go_to": "QAIS_6_4_4",
+          "set_flags": [
+            {
+              "flag_name": "flag_should_ask_6_4_4",
+              "value": false
+            }
+          ]
+        },
+        {
+          "conditions": [
+            {
+              "flag_equals": {
+                "flag_name": "flag_should_ask_6_4_5",
+                "value": true
+              }
+            }
+          ],
+          "go_to": "QAIS_6_4_5",
+          "set_flags": [
+            {
+              "flag_name": "flag_should_ask_6_4_5",
+              "value": false
+            }
+          ]
+        },
+        {
+          "conditions": [
+            {
+              "flag_equals": {
+                "flag_name": "flag_should_ask_6_4_6",
+                "value": true
+              }
+            }
+          ],
+          "go_to": "QAIS_6_4_6",
+          "set_flags": [
+            {
+              "flag_name": "flag_should_ask_6_4_6",
+              "value": false
+            }
+          ]
+        },
+        {
+          "conditions": [
+            {
+              "flag_equals": {
+                "flag_name": "flag_should_ask_6_4_7",
+                "value": true
+              }
+            }
+          ],
+          "go_to": "QAIS_6_4_7",
+          "set_flags": [
+            {
+              "flag_name": "flag_should_ask_6_4_7",
+              "value": false
+            }
+          ]
+        },
+        {
+          "go_to": "QAIS_6_hub_evaluation_risk"
+        }
+      ],
+      "answer_flags": {
+        "0": {
+          "set_flags": [
+            {
+              "flag_name": "flag_risklevel_aisystem_highrisk_output",
+              "value": true
+            },
+            {
+              "condition": [
+                {
+                  "flag_equals": {
+                    "flag_name": "flag_ai_system_role",
+                    "value": "deployer"
+                  }
+                }
+              ],
+              "flag_name": "flag_fr_impact_assessment_deployer",
+              "value": true
+            }
+          ]
+        },
+        "1": {
+          "set_flags": [
+            {
+              "flag_name": "flag_risklevel_aisystem_highrisk_output",
+              "value": true
+            },
+            {
+              "condition": [
+                {
+                  "flag_equals": {
+                    "flag_name": "flag_ai_system_role",
+                    "value": "deployer"
+                  }
+                }
+              ],
+              "flag_name": "flag_fr_impact_assessment_deployer",
+              "value": true
+            }
+          ]
+        },
+        "2": {
+          "set_flags": [
+            {
+              "flag_name": "flag_risklevel_aisystem_highrisk_output",
+              "value": true
+            },
+            {
+              "condition": [
+                {
+                  "flag_equals": {
+                    "flag_name": "flag_ai_system_role",
+                    "value": "deployer"
+                  }
+                }
+              ],
+              "flag_name": "flag_fr_impact_assessment_deployer",
+              "value": true
+            }
+          ]
+        },
+        "3": {
+          "set_flags": [
+            {
+              "flag_name": "flag_risklevel_aisystem_highrisk_output",
+              "value": true
+            },
+            {
+              "condition": [
+                {
+                  "flag_equals": {
+                    "flag_name": "flag_ai_system_role",
+                    "value": "deployer"
+                  }
+                }
+              ],
+              "flag_name": "flag_fr_impact_assessment_deployer",
+              "value": true
+            }
+          ]
+        },
+        "4": {
+          "exclusive": true
+        }
+      }
+    },
+    "QAIS_6_4_5": {
+      "original_id": "QAIS 6.4.5",
+      "question_id": "QAIS_6_4_5",
+      "type": "checkbox",
+      "routing": [
+        {
+          "conditions": [
+            {
+              "if_any_answer_in": [
+                0,
+                1,
+                2,
+                3,
+                4
+              ]
+            },
+            {
+              "flag_equals": {
+                "flag_name": "is_ai_highrisk_permanent",
+                "value": false
+              }
+            }
+          ],
+          "go_to": "QAIS_6_5"
+        },
+        {
+          "conditions": [
+            {
+              "flag_equals": {
+                "flag_name": "flag_should_ask_6_4_2",
+                "value": true
+              }
+            }
+          ],
+          "go_to": "QAIS_6_4_2",
+          "set_flags": [
+            {
+              "flag_name": "flag_should_ask_6_4_2",
+              "value": false
+            }
+          ]
+        },
+        {
+          "conditions": [
+            {
+              "flag_equals": {
+                "flag_name": "flag_should_ask_6_4_3",
+                "value": true
+              }
+            }
+          ],
+          "go_to": "QAIS_6_4_3",
+          "set_flags": [
+            {
+              "flag_name": "flag_should_ask_6_4_3",
+              "value": false
+            }
+          ]
+        },
+        {
+          "conditions": [
+            {
+              "flag_equals": {
+                "flag_name": "flag_should_ask_6_4_4",
+                "value": true
+              }
+            }
+          ],
+          "go_to": "QAIS_6_4_4",
+          "set_flags": [
+            {
+              "flag_name": "flag_should_ask_6_4_4",
+              "value": false
+            }
+          ]
+        },
+        {
+          "conditions": [
+            {
+              "flag_equals": {
+                "flag_name": "flag_should_ask_6_4_5",
+                "value": true
+              }
+            }
+          ],
+          "go_to": "QAIS_6_4_5",
+          "set_flags": [
+            {
+              "flag_name": "flag_should_ask_6_4_5",
+              "value": false
+            }
+          ]
+        },
+        {
+          "conditions": [
+            {
+              "flag_equals": {
+                "flag_name": "flag_should_ask_6_4_6",
+                "value": true
+              }
+            }
+          ],
+          "go_to": "QAIS_6_4_6",
+          "set_flags": [
+            {
+              "flag_name": "flag_should_ask_6_4_6",
+              "value": false
+            }
+          ]
+        },
+        {
+          "conditions": [
+            {
+              "flag_equals": {
+                "flag_name": "flag_should_ask_6_4_7",
+                "value": true
+              }
+            }
+          ],
+          "go_to": "QAIS_6_4_7",
+          "set_flags": [
+            {
+              "flag_name": "flag_should_ask_6_4_7",
+              "value": false
+            }
+          ]
+        },
+        {
+          "go_to": "QAIS_6_hub_evaluation_risk"
+        }
+      ],
+      "answer_flags": {
+        "0": {
+          "set_flags": [
+            {
+              "flag_name": "flag_risklevel_aisystem_highrisk_output",
+              "value": true
+            },
+            {
+              "condition": [
+                {
+                  "flag_equals": {
+                    "flag_name": "flag_ai_system_role",
+                    "value": "deployer"
+                  }
+                }
+              ],
+              "flag_name": "flag_fr_impact_assessment_deployer",
+              "value": true
+            }
+          ]
+        },
+        "1": {
+          "set_flags": [
+            {
+              "flag_name": "flag_risklevel_aisystem_highrisk_output",
+              "value": true
+            },
+            {
+              "condition": [
+                {
+                  "flag_equals": {
+                    "flag_name": "flag_ai_system_role",
+                    "value": "deployer"
+                  }
+                }
+              ],
+              "flag_name": "flag_fr_impact_assessment_deployer",
+              "value": true
+            }
+          ]
+        },
+        "2": {
+          "set_flags": [
+            {
+              "flag_name": "flag_risklevel_aisystem_highrisk_output",
+              "value": true
+            },
+            {
+              "condition": [
+                {
+                  "flag_equals": {
+                    "flag_name": "flag_ai_system_role",
+                    "value": "deployer"
+                  }
+                }
+              ],
+              "flag_name": "flag_fr_impact_assessment_deployer",
+              "value": true
+            }
+          ]
+        },
+        "3": {
+          "set_flags": [
+            {
+              "flag_name": "flag_risklevel_aisystem_highrisk_output",
+              "value": true
+            },
+            {
+              "condition": [
+                {
+                  "flag_equals": {
+                    "flag_name": "flag_ai_system_role",
+                    "value": "deployer"
+                  }
+                }
+              ],
+              "flag_name": "flag_fr_impact_assessment_deployer",
+              "value": true
+            }
+          ]
+        },
+        "4": {
+          "set_flags": [
+            {
+              "flag_name": "flag_risklevel_aisystem_highrisk_output",
+              "value": true
+            },
+            {
+              "condition": [
+                {
+                  "flag_equals": {
+                    "flag_name": "flag_ai_system_role",
+                    "value": "deployer"
+                  }
+                }
+              ],
+              "flag_name": "flag_fr_impact_assessment_deployer",
+              "value": true
+            }
+          ]
+        },
+        "5": {
+          "exclusive": true
+        }
+      }
+    },
+    "QAIS_6_4_6": {
+      "original_id": "QAIS 6.4.6",
+      "question_id": "QAIS_6_4_6",
+      "type": "checkbox",
+      "routing": [
+        {
+          "conditions": [
+            {
+              "if_any_answer_in": [
+                0,
+                1,
+                2,
+                3
+              ]
+            },
+            {
+              "flag_equals": {
+                "flag_name": "is_ai_highrisk_permanent",
+                "value": false
+              }
+            }
+          ],
+          "go_to": "QAIS_6_5"
+        },
+        {
+          "conditions": [
+            {
+              "flag_equals": {
+                "flag_name": "flag_should_ask_6_4_2",
+                "value": true
+              }
+            }
+          ],
+          "go_to": "QAIS_6_4_2",
+          "set_flags": [
+            {
+              "flag_name": "flag_should_ask_6_4_2",
+              "value": false
+            }
+          ]
+        },
+        {
+          "conditions": [
+            {
+              "flag_equals": {
+                "flag_name": "flag_should_ask_6_4_3",
+                "value": true
+              }
+            }
+          ],
+          "go_to": "QAIS_6_4_3",
+          "set_flags": [
+            {
+              "flag_name": "flag_should_ask_6_4_3",
+              "value": false
+            }
+          ]
+        },
+        {
+          "conditions": [
+            {
+              "flag_equals": {
+                "flag_name": "flag_should_ask_6_4_4",
+                "value": true
+              }
+            }
+          ],
+          "go_to": "QAIS_6_4_4",
+          "set_flags": [
+            {
+              "flag_name": "flag_should_ask_6_4_4",
+              "value": false
+            }
+          ]
+        },
+        {
+          "conditions": [
+            {
+              "flag_equals": {
+                "flag_name": "flag_should_ask_6_4_5",
+                "value": true
+              }
+            }
+          ],
+          "go_to": "QAIS_6_4_5",
+          "set_flags": [
+            {
+              "flag_name": "flag_should_ask_6_4_5",
+              "value": false
+            }
+          ]
+        },
+        {
+          "conditions": [
+            {
+              "flag_equals": {
+                "flag_name": "flag_should_ask_6_4_6",
+                "value": true
+              }
+            }
+          ],
+          "go_to": "QAIS_6_4_6",
+          "set_flags": [
+            {
+              "flag_name": "flag_should_ask_6_4_6",
+              "value": false
+            }
+          ]
+        },
+        {
+          "conditions": [
+            {
+              "flag_equals": {
+                "flag_name": "flag_should_ask_6_4_7",
+                "value": true
+              }
+            }
+          ],
+          "go_to": "QAIS_6_4_7",
+          "set_flags": [
+            {
+              "flag_name": "flag_should_ask_6_4_7",
+              "value": false
+            }
+          ]
+        },
+        {
+          "go_to": "QAIS_6_hub_evaluation_risk"
+        }
+      ],
+      "answer_flags": {
+        "0": {
+          "set_flags": [
+            {
+              "flag_name": "flag_risklevel_aisystem_highrisk_output",
+              "value": true
+            },
+            {
+              "condition": [
+                {
+                  "flag_equals": {
+                    "flag_name": "flag_ai_system_role",
+                    "value": "deployer"
+                  }
+                }
+              ],
+              "flag_name": "flag_fr_impact_assessment_deployer",
+              "value": true
+            }
+          ]
+        },
+        "1": {
+          "set_flags": [
+            {
+              "flag_name": "flag_risklevel_aisystem_highrisk_output",
+              "value": true
+            },
+            {
+              "condition": [
+                {
+                  "flag_equals": {
+                    "flag_name": "flag_ai_system_role",
+                    "value": "deployer"
+                  }
+                }
+              ],
+              "flag_name": "flag_fr_impact_assessment_deployer",
+              "value": true
+            }
+          ]
+        },
+        "2": {
+          "set_flags": [
+            {
+              "flag_name": "flag_risklevel_aisystem_highrisk_output",
+              "value": true
+            },
+            {
+              "condition": [
+                {
+                  "flag_equals": {
+                    "flag_name": "flag_ai_system_role",
+                    "value": "deployer"
+                  }
+                }
+              ],
+              "flag_name": "flag_fr_impact_assessment_deployer",
+              "value": true
+            }
+          ]
+        },
+        "3": {
+          "set_flags": [
+            {
+              "flag_name": "flag_risklevel_aisystem_highrisk_output",
+              "value": true
+            },
+            {
+              "condition": [
+                {
+                  "flag_equals": {
+                    "flag_name": "flag_ai_system_role",
+                    "value": "deployer"
+                  }
+                }
+              ],
+              "flag_name": "flag_fr_impact_assessment_deployer",
+              "value": true
+            }
+          ]
+        },
+        "4": {
+          "exclusive": true
+        }
+      }
+    },
+    "QAIS_6_4_7": {
+      "original_id": "QAIS 6.4.7",
+      "question_id": "QAIS_6_4_7",
+      "type": "checkbox",
+      "routing": [
+        {
+          "conditions": [
+            {
+              "if_any_answer_in": [
+                0,
+                1
+              ]
+            },
+            {
+              "flag_equals": {
+                "flag_name": "is_ai_highrisk_permanent",
+                "value": false
+              }
+            }
+          ],
+          "go_to": "QAIS_6_5"
+        },
+        {
+          "conditions": [
+            {
+              "flag_equals": {
+                "flag_name": "flag_should_ask_6_4_2",
+                "value": true
+              }
+            }
+          ],
+          "go_to": "QAIS_6_4_2",
+          "set_flags": [
+            {
+              "flag_name": "flag_should_ask_6_4_2",
+              "value": false
+            }
+          ]
+        },
+        {
+          "conditions": [
+            {
+              "flag_equals": {
+                "flag_name": "flag_should_ask_6_4_3",
+                "value": true
+              }
+            }
+          ],
+          "go_to": "QAIS_6_4_3",
+          "set_flags": [
+            {
+              "flag_name": "flag_should_ask_6_4_3",
+              "value": false
+            }
+          ]
+        },
+        {
+          "conditions": [
+            {
+              "flag_equals": {
+                "flag_name": "flag_should_ask_6_4_4",
+                "value": true
+              }
+            }
+          ],
+          "go_to": "QAIS_6_4_4",
+          "set_flags": [
+            {
+              "flag_name": "flag_should_ask_6_4_4",
+              "value": false
+            }
+          ]
+        },
+        {
+          "conditions": [
+            {
+              "flag_equals": {
+                "flag_name": "flag_should_ask_6_4_5",
+                "value": true
+              }
+            }
+          ],
+          "go_to": "QAIS_6_4_5",
+          "set_flags": [
+            {
+              "flag_name": "flag_should_ask_6_4_5",
+              "value": false
+            }
+          ]
+        },
+        {
+          "conditions": [
+            {
+              "flag_equals": {
+                "flag_name": "flag_should_ask_6_4_6",
+                "value": true
+              }
+            }
+          ],
+          "go_to": "QAIS_6_4_6",
+          "set_flags": [
+            {
+              "flag_name": "flag_should_ask_6_4_6",
+              "value": false
+            }
+          ]
+        },
+        {
+          "conditions": [
+            {
+              "flag_equals": {
+                "flag_name": "flag_should_ask_6_4_7",
+                "value": true
+              }
+            }
+          ],
+          "go_to": "QAIS_6_4_7",
+          "set_flags": [
+            {
+              "flag_name": "flag_should_ask_6_4_7",
+              "value": false
+            }
+          ]
+        },
+        {
+          "go_to": "QAIS_6_hub_evaluation_risk"
+        }
+      ],
+      "answer_flags": {
+        "0": {
+          "set_flags": [
+            {
+              "flag_name": "flag_risklevel_aisystem_highrisk_output",
+              "value": true
+            },
+            {
+              "condition": [
+                {
+                  "flag_equals": {
+                    "flag_name": "flag_ai_system_role",
+                    "value": "deployer"
+                  }
+                }
+              ],
+              "flag_name": "flag_fr_impact_assessment_deployer",
+              "value": true
+            }
+          ]
+        },
+        "1": {
+          "set_flags": [
+            {
+              "flag_name": "flag_risklevel_aisystem_highrisk_output",
+              "value": true
+            },
+            {
+              "condition": [
+                {
+                  "flag_equals": {
+                    "flag_name": "flag_ai_system_role",
+                    "value": "deployer"
+                  }
+                }
+              ],
+              "flag_name": "flag_fr_impact_assessment_deployer",
+              "value": true
+            }
+          ]
+        },
+        "2": {
+          "exclusive": true
+        }
+      }
+    },
+    "QAIS_6_4": {
+      "original_id": "QAIS 6.4",
+      "question_id": "QAIS_6_4",
+      "type": "checkbox",
+      "routing": [
+        {
+          "conditions": [
+            {
+              "answer_is": 0
+            },
+            {
+              "if_none_selected_in": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ]
+            },
+            {
+              "flag_equals": {
+                "flag_name": "is_ai_highrisk_permanent",
+                "value": false
+              }
+            }
+          ],
+          "go_to": "QAIS_6_5"
+        },
+        {
+          "conditions": [
+            {
+              "answer_is": 1
+            }
+          ],
+          "go_to": "QAIS_6_4_1",
+          "set_flags": [
+            {
+              "flag_name": "flag_should_ask_6_4_1",
+              "value": false
+            }
+          ]
+        },
+        {
+          "conditions": [
+            {
+              "answer_is": 2
+            },
+            {
+              "if_none_selected_in": [
+                1
+              ]
+            }
+          ],
+          "go_to": "QAIS_6_4_2",
+          "set_flags": [
+            {
+              "flag_name": "flag_should_ask_6_4_2",
+              "value": false
+            }
+          ]
+        },
+        {
+          "conditions": [
+            {
+              "answer_is": 3
+            },
+            {
+              "if_none_selected_in": [
+                1,
+                2
+              ]
+            }
+          ],
+          "go_to": "QAIS_6_4_3",
+          "set_flags": [
+            {
+              "flag_name": "flag_should_ask_6_4_3",
+              "value": false
+            }
+          ]
+        },
+        {
+          "conditions": [
+            {
+              "answer_is": 4
+            },
+            {
+              "if_none_selected_in": [
+                1,
+                2,
+                3
+              ]
+            }
+          ],
+          "go_to": "QAIS_6_4_4",
+          "set_flags": [
+            {
+              "flag_name": "flag_should_ask_6_4_4",
+              "value": false
+            }
+          ]
+        },
+        {
+          "conditions": [
+            {
+              "answer_is": 5
+            },
+            {
+              "if_none_selected_in": [
+                1,
+                2,
+                3,
+                4
+              ]
+            }
+          ],
+          "go_to": "QAIS_6_4_5",
+          "set_flags": [
+            {
+              "flag_name": "flag_should_ask_6_4_5",
+              "value": false
+            }
+          ]
+        },
+        {
+          "conditions": [
+            {
+              "answer_is": 6
+            },
+            {
+              "if_none_selected_in": [
+                1,
+                2,
+                3,
+                4,
+                5
+              ]
+            }
+          ],
+          "go_to": "QAIS_6_4_6",
+          "set_flags": [
+            {
+              "flag_name": "flag_should_ask_6_4_6",
+              "value": false
+            }
+          ]
+        },
+        {
+          "conditions": [
+            {
+              "answer_is": 7
+            },
+            {
+              "if_none_selected_in": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6
+              ]
+            }
+          ],
+          "go_to": "QAIS_6_4_7",
+          "set_flags": [
+            {
+              "flag_name": "flag_should_ask_6_4_7",
+              "value": false
+            }
+          ]
+        },
+        {
+          "go_to": "QAIS_6_hub_evaluation_risk"
+        }
+      ],
+      "answer_flags": {
+        "0": {
+          "set_flags": [
+            {
+              "flag_name": "flag_risklevel_aisystem_highrisk_output",
+              "value": true
+            },
+            {
+              "flag_name": "critical_infrastructure",
+              "value": true
+            }
+          ]
+        },
+        "1": {
+          "set_flags": [
+            {
+              "flag_name": "flag_should_ask_6_4_1",
+              "value": true
+            }
+          ]
+        },
+        "2": {
+          "set_flags": [
+            {
+              "flag_name": "flag_should_ask_6_4_2",
+              "value": true
+            }
+          ]
+        },
+        "3": {
+          "set_flags": [
+            {
+              "flag_name": "flag_should_ask_6_4_3",
+              "value": true
+            }
+          ]
+        },
+        "4": {
+          "set_flags": [
+            {
+              "flag_name": "flag_should_ask_6_4_4",
+              "value": true
+            }
+          ]
+        },
+        "5": {
+          "set_flags": [
+            {
+              "flag_name": "flag_should_ask_6_4_5",
+              "value": true
+            }
+          ]
+        },
+        "6": {
+          "set_flags": [
+            {
+              "flag_name": "flag_should_ask_6_4_6",
+              "value": true
+            }
+          ]
+        },
+        "7": {
+          "set_flags": [
+            {
+              "flag_name": "flag_should_ask_6_4_7",
+              "value": true
+            }
+          ]
+        },
+        "8": {
+          "exclusive": true
+        }
+      }
+    },
+    "QAIS_6_5": {
+      "original_id": "QAIS 6.5",
+      "question_id": "QAIS_6_5",
+      "type": "checkbox",
+      "routing": [
+        {
+          "conditions": [
+            {
+              "flag_equals": {
+                "flag_name": "flag_should_ask_6_4_1",
+                "value": true
+              }
+            }
+          ],
+          "go_to": "QAIS_6_4_1",
+          "set_flags": [
+            {
+              "flag_name": "flag_should_ask_6_4_1",
+              "value": false
+            }
+          ]
+        },
+        {
+          "conditions": [
+            {
+              "flag_equals": {
+                "flag_name": "flag_should_ask_6_4_2",
+                "value": true
+              }
+            }
+          ],
+          "go_to": "QAIS_6_4_2",
+          "set_flags": [
+            {
+              "flag_name": "flag_should_ask_6_4_2",
+              "value": false
+            }
+          ]
+        },
+        {
+          "conditions": [
+            {
+              "flag_equals": {
+                "flag_name": "flag_should_ask_6_4_3",
+                "value": true
+              }
+            }
+          ],
+          "go_to": "QAIS_6_4_3",
+          "set_flags": [
+            {
+              "flag_name": "flag_should_ask_6_4_3",
+              "value": false
+            }
+          ]
+        },
+        {
+          "conditions": [
+            {
+              "flag_equals": {
+                "flag_name": "flag_should_ask_6_4_4",
+                "value": true
+              }
+            }
+          ],
+          "go_to": "QAIS_6_4_4",
+          "set_flags": [
+            {
+              "flag_name": "flag_should_ask_6_4_4",
+              "value": false
+            }
+          ]
+        },
+        {
+          "conditions": [
+            {
+              "flag_equals": {
+                "flag_name": "flag_should_ask_6_4_5",
+                "value": true
+              }
+            }
+          ],
+          "go_to": "QAIS_6_4_5",
+          "set_flags": [
+            {
+              "flag_name": "flag_should_ask_6_4_5",
+              "value": false
+            }
+          ]
+        },
+        {
+          "conditions": [
+            {
+              "flag_equals": {
+                "flag_name": "flag_should_ask_6_4_6",
+                "value": true
+              }
+            }
+          ],
+          "go_to": "QAIS_6_4_6",
+          "set_flags": [
+            {
+              "flag_name": "flag_should_ask_6_4_6",
+              "value": false
+            }
+          ]
+        },
+        {
+          "conditions": [
+            {
+              "flag_equals": {
+                "flag_name": "flag_should_ask_6_4_7",
+                "value": true
+              }
+            }
+          ],
+          "go_to": "QAIS_6_4_7",
+          "set_flags": [
+            {
+              "flag_name": "flag_should_ask_6_4_7",
+              "value": false
+            }
+          ]
+        },
+        {
+          "go_to": "QAIS_6_hub_evaluation_risk"
+        }
+      ],
+      "answer_flags": {
+        "0": {
+          "set_flags": [
+            {
+              "flag_name": "flag_derogation_6_5_granted_at_least_for_one_subquestion_6_4_x",
+              "value": true
+            }
+          ]
+        },
+        "1": {
+          "set_flags": [
+            {
+              "flag_name": "flag_derogation_6_5_granted_at_least_for_one_subquestion_6_4_x",
+              "value": true
+            }
+          ]
+        },
+        "2": {
+          "set_flags": [
+            {
+              "flag_name": "flag_derogation_6_5_granted_at_least_for_one_subquestion_6_4_x",
+              "value": true
+            }
+          ]
+        },
+        "3": {
+          "set_flags": [
+            {
+              "flag_name": "flag_derogation_6_5_granted_at_least_for_one_subquestion_6_4_x",
+              "value": true
+            }
+          ]
+        },
+        "4": {
+          "set_flags": [
+            {
+              "flag_name": "flag_risklevel_aisystem_highrisk_output",
+              "value": true
+            },
+            {
+              "flag_name": "flag_derogation_6_5_refused_at_least_for_one_subquestion_6_4_x",
+              "value": true
+            },
+            {
+              "condition": [
+                {
+                  "flag_equals": {
+                    "flag_name": "flag_ai_system_role",
+                    "value": "provider"
+                  }
+                }
+              ],
+              "flag_name": "flag_obligations_provider_results_high_risk",
+              "value": true
+            },
+            {
+              "condition": [
+                {
+                  "flag_equals": {
+                    "flag_name": "flag_ai_system_role",
+                    "value": "deployer"
+                  }
+                }
+              ],
+              "flag_name": "flag_obligations_deployer_output",
+              "value": true
+            },
+            {
+              "condition": [
+                {
+                  "flag_equals": {
+                    "flag_name": "flag_ai_system_role",
+                    "value": "deployer"
+                  }
+                },
+                {
+                  "flag_equals": {
+                    "flag_name": "critical_infrastructure",
+                    "value": false
+                  }
+                }
+              ],
+              "flag_name": "flag_fr_impact_assessment_deployer",
+              "value": true
+            },
+            {
+              "condition": [
+                {
+                  "flag_equals": {
+                    "flag_name": "flag_ai_system_role",
+                    "value": "deployer"
+                  }
+                },
+                {
+                  "flag_equals": {
+                    "flag_name": "critical_infrastructure",
+                    "value": false
+                  }
+                }
+              ],
+              "flag_name": "flag_obligations_aisystem_nohighrisk_output",
+              "value": false
+            }
+          ]
+        }
+      }
+    },
+    "QAIS_6": {
+      "original_id": "QAIS 6",
+      "question_id": "QAIS_6",
+      "type": "radio",
+      "routing": [
+        {
+          "conditions": [
+            {
+              "answer_is": 0
+            }
+          ],
+          "go_to": "QAIS_6_1"
+        },
+        {
+          "conditions": [
+            {
+              "answer_is": 1
+            }
+          ],
+          "go_to": "QAIS_6_4"
+        },
+        {
+          "conditions": [
+            {
+              "answer_is": 2
+            }
+          ],
+          "go_to": "QAIS_6_1"
+        }
+      ],
+      "answer_flags": {
+        "0": {},
+        "1": {},
+        "2": {}
+      }
+    },
+    "QAIS_6_hub_evaluation_risk": {
+      "original_id": "QAIS_6_hub_evaluation_risk",
+      "question_id": "QAIS_6_hub_evaluation_risk",
+      "type": "hub",
+      "routing": [
+        {
+          "conditions": [
+            {
+              "flag_equals": {
+                "flag_name": "flag_derogation_6_5_refused_at_least_for_one_subquestion_6_4_x",
+                "value": true
+              }
+            }
+          ],
+          "go_to": "QAIS_6_hub_highrisk_path",
+          "set_flags": [
+            {
+              "flag_name": "flag_risklevel_aisystem_highrisk_output",
+              "value": true
+            }
+          ]
+        },
+        {
+          "conditions": [
+            {
+              "flag_equals": {
+                "flag_name": "is_ai_highrisk_permanent",
+                "value": true
+              }
+            }
+          ],
+          "go_to": "QAIS_6_hub_highrisk_path",
+          "set_flags": [
+            {
+              "flag_name": "flag_risklevel_aisystem_highrisk_output",
+              "value": true
+            }
+          ]
+        },
+        {
+          "go_to": "QAIS_6_hub_nohighrisk_path",
+          "set_flags": [
+            {
+              "flag_name": "flag_risklevel_aisystem_highrisk_output",
+              "value": false
+            },
+            {
+              "flag_name": "flag_risklevel_aisystem_nohighrisk_output",
+              "value": true
+            },
+            {
+              "flag_name": "flag_obligations_aisystem_nohighrisk_output",
+              "value": true
+            },
+            {
+              "condition": [
+                {
+                  "flag_equals": {
+                    "flag_name": "flag_derogation_6_5_granted_at_least_for_one_subquestion_6_4_x",
+                    "value": true
+                  }
+                },
+                {
+                  "flag_equals": {
+                    "flag_name": "flag_ai_initial_system_role",
+                    "value": "provider"
+                  }
+                }
+              ],
+              "flag_name": "flag_ai_system_no_highrisk_frimpactassessement_provider_output",
+              "value": true
+            },
+            {
+              "condition": [
+                {
+                  "flag_equals": {
+                    "flag_name": "flag_role_distriimportdeployer_becomeprovider_result",
+                    "value": true
+                  }
+                }
+              ],
+              "flag_name": "flag_ai_system_no_highrisk_frimpactassessement_provider_output",
+              "value": false
+            },
+            {
+              "condition": [
+                {
+                  "flag_equals": {
+                    "flag_name": "flag_role_distriimportdeployer_becomeprovider_result",
+                    "value": true
+                  }
+                }
+              ],
+              "flag_name": "flag_obligations_provideranddeployer_ailiteracy",
+              "value": false
+            },
+            {
+              "flag_name": "flag_role_distriimportdeployer_becomeprovider_result",
+              "value": false
+            },
+            {
+              "condition": [
+                {
+                  "flag_equals": {
+                    "flag_name": "flag_ai_system_no_highrisk_frimpactassessement_provider_output",
+                    "value": true
+                  }
+                }
+              ],
+              "flag_name": "flag_obligations_aisystem_nohighrisk_output",
+              "value": false
+            },
+            {
+              "condition": [
+                {
+                  "flag_equals": {
+                    "flag_name": "flag_fr_impact_assessment_deployer",
+                    "value": true
+                  }
+                }
+              ],
+              "flag_name": "flag_obligations_aisystem_nohighrisk_output",
+              "value": false
+            },
+            {
+              "condition": [
+                {
+                  "flag_equals": {
+                    "flag_name": "flag_ai_initial_system_role",
+                    "value": "provider"
+                  }
+                }
+              ],
+              "flag_name": "flag_ai_system_role",
+              "value": "provider"
+            },
+            {
+              "condition": [
+                {
+                  "flag_equals": {
+                    "flag_name": "flag_ai_initial_system_role",
+                    "value": "deployer"
+                  }
+                }
+              ],
+              "flag_name": "flag_ai_system_role",
+              "value": "deployer"
+            },
+            {
+              "condition": [
+                {
+                  "flag_equals": {
+                    "flag_name": "flag_ai_initial_system_role",
+                    "value": "importer"
+                  }
+                }
+              ],
+              "flag_name": "flag_ai_system_role",
+              "value": "importer"
+            },
+            {
+              "condition": [
+                {
+                  "flag_equals": {
+                    "flag_name": "flag_ai_initial_system_role",
+                    "value": "distributor"
+                  }
+                }
+              ],
+              "flag_name": "flag_ai_system_role",
+              "value": "distributor"
+            },
+            {
+              "condition": [
+                {
+                  "flag_equals": {
+                    "flag_name": "flag_ai_initial_system_role",
+                    "value": "authorisedrepre"
+                  }
+                }
+              ],
+              "flag_name": "flag_ai_system_role",
+              "value": "authorisedrepre"
+            },
+            {
+              "condition": [
+                {
+                  "flag_equals": {
+                    "flag_name": "flag_ai_initial_system_role",
+                    "value": "productmanufacturer"
+                  }
+                }
+              ],
+              "flag_name": "flag_ai_system_role",
+              "value": "productmanufacturer"
+            }
+          ]
+        }
+      ],
+      "answer_flags": {}
+    },
+    "QAIS_6_hub_highrisk_path": {
+      "original_id": "QAIS_6_hub_highrisk_path",
+      "question_id": "QAIS_6_hub_highrisk_path",
+      "type": "hub",
+      "routing": [
+        {
+          "conditions": [
+            {
+              "flag_equals": {
+                "flag_name": "flag_ai_system_role",
+                "value": "provider"
+              }
+            }
+          ],
+          "go_to": "QAIS_7_1",
+          "set_flags": [
+            {
+              "flag_name": "flag_obligations_provider_results_high_risk",
+              "value": true
+            }
+          ]
+        },
+        {
+          "conditions": [
+            {
+              "flag_equals": {
+                "flag_name": "flag_ai_system_role",
+                "value": "deployer"
+              }
+            }
+          ],
+          "go_to": "QAIS_7_2",
+          "set_flags": [
+            {
+              "flag_name": "flag_obligations_deployer_output",
+              "value": true
+            }
+          ]
+        },
+        {
+          "go_to": "END",
+          "set_flags": [
+            {
+              "condition": [
+                {
+                  "flag_equals": {
+                    "flag_name": "flag_ai_system_role",
+                    "value": "authorisedrepre"
+                  }
+                }
+              ],
+              "flag_name": "flag_obligations_authorisdrepre_results_high_risk",
+              "value": true
+            },
+            {
+              "condition": [
+                {
+                  "flag_equals": {
+                    "flag_name": "flag_ai_system_role",
+                    "value": "importer"
+                  }
+                }
+              ],
+              "flag_name": "flag_obligations_importer_output",
+              "value": true
+            },
+            {
+              "condition": [
+                {
+                  "flag_equals": {
+                    "flag_name": "flag_ai_system_role",
+                    "value": "distributor"
+                  }
+                }
+              ],
+              "flag_name": "flag_obligations_distributor_output",
+              "value": true
+            }
+          ]
+        }
+      ],
+      "answer_flags": {}
+    },
+    "QAIS_6_hub_nohighrisk_path": {
+      "original_id": "QAIS_6_hub_nohighrisk_path",
+      "question_id": "QAIS_6_hub_nohighrisk_path",
+      "type": "hub",
+      "routing": [
+        {
+          "conditions": [
+            {
+              "flag_equals": {
+                "flag_name": "flag_ai_initial_system_role",
+                "value": "provider"
+              }
+            }
+          ],
+          "go_to": "QAIS_7_1"
+        },
+        {
+          "conditions": [
+            {
+              "flag_equals": {
+                "flag_name": "flag_ai_initial_system_role",
+                "value": "deployer"
+              }
+            }
+          ],
+          "go_to": "QAIS_7_2"
+        },
+        {
+          "conditions": [
+            {
+              "flag_equals": {
+                "flag_name": "flag_ai_initial_system_role",
+                "value": "productmanufacturer"
+              }
+            }
+          ],
+          "go_to": "END",
+          "set_flags": [
+            {
+              "flag_name": "flag_role_manutoprovider_output",
+              "value": false
+            },
+            {
+              "flag_name": "flag_ai_system_no_highrisk_frimpactassessement_provider_output",
+              "value": false
+            },
+            {
+              "flag_name": "flag_role_distriimportdeployer_becomeprovider_result",
+              "value": false
+            },
+            {
+              "flag_name": "flag_ai_system_role_provider",
+              "value": false
+            },
+            {
+              "flag_name": "flag_obligations_provideranddeployer_ailiteracy",
+              "value": false
+            },
+            {
+              "flag_name": "flag_obligations_aisystem_nohighrisk_output",
+              "value": true
+            },
+            {
+              "flag_name": "flag_ai_system_role",
+              "value": "productmanufacturer"
+            }
+          ]
+        },
+        {
+          "go_to": "QAIS_8"
+        }
+      ],
+      "answer_flags": {}
+    },
+    "QAIS_7_1": {
+      "original_id": "QAIS 7.1",
+      "question_id": "QAIS_7_1",
+      "type": "checkbox",
+      "routing": [
+        {
+          "conditions": [
+            {
+              "flag_equals": {
+                "flag_name": "flag_risklevel_aisystem_highrisk_output",
+                "value": false
+              }
+            },
+            {
+              "flag_equals": {
+                "flag_name": "flag_obligation_transparency_provider",
+                "value": false
+              }
+            },
+            {
+              "flag_equals": {
+                "flag_name": "flag_obligation_transparency_deployer",
+                "value": false
+              }
+            }
+          ],
+          "go_to": "QAIS_8"
+        },
+        {
+          "go_to": "END"
+        }
+      ],
+      "answer_flags": {
+        "0": {
+          "set_flags": [
+            {
+              "flag_name": "flag_obligation_transparency_provider",
+              "value": true
+            }
+          ]
+        },
+        "1": {
+          "set_flags": [
+            {
+              "flag_name": "flag_obligation_transparency_provider",
+              "value": true
+            }
+          ]
+        },
+        "2": {
+          "exclusive": true
+        }
+      }
+    },
+    "QAIS_7_2": {
+      "original_id": "QAIS 7.2",
+      "question_id": "QAIS_7_2",
+      "type": "checkbox",
+      "routing": [
+        {
+          "conditions": [
+            {
+              "flag_equals": {
+                "flag_name": "flag_risklevel_aisystem_highrisk_output",
+                "value": false
+              }
+            },
+            {
+              "flag_equals": {
+                "flag_name": "flag_obligation_transparency_provider",
+                "value": false
+              }
+            },
+            {
+              "flag_equals": {
+                "flag_name": "flag_obligation_transparency_deployer",
+                "value": false
+              }
+            }
+          ],
+          "go_to": "QAIS_8"
+        },
+        {
+          "go_to": "END"
+        }
+      ],
+      "answer_flags": {
+        "0": {
+          "set_flags": [
+            {
+              "flag_name": "flag_obligation_transparency_deployer",
+              "value": true
+            }
+          ]
+        },
+        "1": {
+          "set_flags": [
+            {
+              "flag_name": "flag_obligation_transparency_deployer",
+              "value": true
+            }
+          ]
+        },
+        "2": {
+          "set_flags": [
+            {
+              "flag_name": "flag_obligation_transparency_deployer",
+              "value": true
+            }
+          ]
+        },
+        "3": {
+          "exclusive": true
+        }
+      }
+    },
+    "QAIS_8": {
+      "original_id": "QAIS 8",
+      "question_id": "QAIS_8",
+      "type": "radio",
+      "routing": [
+        {
+          "go_to": "END"
+        }
+      ],
+      "answer_flags": {
+        "0": {
+          "set_flags": [
+            {
+              "flag_name": "flag_obligations_provideranddeployer_ailiteracy",
+              "value": false
+            },
+            {
+              "flag_name": "flag_obligations_aisystem_opensource",
+              "value": true
+            },
+            {
+              "condition": [
+                {
+                  "flag_equals": {
+                    "flag_name": "flag_obligations_provider_results_high_risk",
+                    "value": true
+                  }
+                }
+              ],
+              "flag_name": "flag_obligations_aisystem_opensource",
+              "value": false
+            },
+            {
+              "condition": [
+                {
+                  "flag_equals": {
+                    "flag_name": "flag_obligations_authorisdrepre_results_high_risk",
+                    "value": true
+                  }
+                }
+              ],
+              "flag_name": "flag_obligations_aisystem_opensource",
+              "value": false
+            },
+            {
+              "condition": [
+                {
+                  "flag_equals": {
+                    "flag_name": "flag_obligations_importer_output",
+                    "value": true
+                  }
+                }
+              ],
+              "flag_name": "flag_obligations_aisystem_opensource",
+              "value": false
+            },
+            {
+              "condition": [
+                {
+                  "flag_equals": {
+                    "flag_name": "flag_obligations_distributor_output",
+                    "value": true
+                  }
+                }
+              ],
+              "flag_name": "flag_obligations_aisystem_opensource",
+              "value": false
+            },
+            {
+              "condition": [
+                {
+                  "flag_equals": {
+                    "flag_name": "flag_obligations_deployer_output",
+                    "value": true
+                  }
+                }
+              ],
+              "flag_name": "flag_obligations_aisystem_opensource",
+              "value": false
+            },
+            {
+              "condition": [
+                {
+                  "flag_equals": {
+                    "flag_name": "flag_obligation_transparency_provider",
+                    "value": true
+                  }
+                }
+              ],
+              "flag_name": "flag_obligations_aisystem_opensource",
+              "value": false
+            },
+            {
+              "condition": [
+                {
+                  "flag_equals": {
+                    "flag_name": "flag_obligation_transparency_deployer",
+                    "value": true
+                  }
+                }
+              ],
+              "flag_name": "flag_obligations_aisystem_opensource",
+              "value": false
+            }
+          ]
+        },
+        "1": {}
+      }
+    },
+    "QGPAI_1": {
+      "original_id": "QGPAI 1",
+      "question_id": "QGPAI_1",
+      "type": "radio",
+      "routing": [
+        {
+          "conditions": [
+            {
+              "answer_is": 0
+            }
+          ],
+          "go_to": "QGPAI_2"
+        },
+        {
+          "conditions": [
+            {
+              "answer_is": 1
+            }
+          ],
+          "go_to": "END"
+        }
+      ],
+      "answer_flags": {
+        "0": {},
+        "1": {
+          "set_flags": [
+            {
+              "flag_name": "flag_notaimodel_result_output",
+              "value": true
+            }
+          ]
+        }
+      }
+    },
+    "QGPAI_2": {
+      "original_id": "QGPAI 2",
+      "question_id": "QGPAI_2",
+      "type": "checkbox",
+      "routing": [
+        {
+          "go_to": "QGPAI_3"
+        }
+      ],
+      "answer_flags": {
+        "0": {
+          "set_flags": [
+            {
+              "flag_name": "flag_risklevel_output_gpai_with_systemic_risk",
+              "value": true
+            },
+            {
+              "flag_name": "flag_aimodel_obligations_systemicrisk_result_output",
+              "value": true
+            }
+          ]
+        },
+        "1": {
+          "set_flags": [
+            {
+              "flag_name": "flag_risklevel_output_gpai_with_systemic_risk",
+              "value": true
+            },
+            {
+              "flag_name": "flag_aimodel_obligations_systemicrisk_result_output",
+              "value": true
+            }
+          ]
+        },
+        "2": {
+          "set_flags": [
+            {
+              "flag_name": "flag_risklevel_output_gpai_without_systemic_risk",
+              "value": true
+            },
+            {
+              "flag_name": "flag_aimodel_obligations_nosystemicrisk_result_output",
+              "value": true
+            },
+            {
+              "flag_name": "flag_risklevel_output_gpai_with_systemic_risk",
+              "value": false
+            }
+          ],
+          "exclusive": true
+        }
+      }
+    },
+    "QGPAI_3": {
+      "original_id": "QGPAI 3",
+      "question_id": "QGPAI_3",
+      "type": "radio",
+      "routing": [
+        {
+          "conditions": [
+            {
+              "answer_is": 2
+            }
+          ],
+          "go_to": "QGPAI_3_1"
+        },
+        {
+          "conditions": [
+            {
+              "answer_is": 3
+            }
+          ],
+          "go_to": "END"
+        },
+        {
+          "conditions": [
+            {
+              "flag_equals": {
+                "flag_name": "flag_risklevel_output_gpai_with_systemic_risk",
+                "value": true
+              }
+            }
+          ],
+          "go_to": "END"
+        },
+        {
+          "go_to": "QGPAI_7"
+        }
+      ],
+      "answer_flags": {
+        "0": {
+          "set_flags": [
+            {
+              "flag_name": "flag_role_provider_gpai_output",
+              "value": true
+            }
+          ]
+        },
+        "1": {
+          "set_flags": [
+            {
+              "flag_name": "flag_role_authorized_representative_gpai_output",
+              "value": true
+            },
+            {
+              "flag_name": "flag_aimodel_obligations_systemicrisk_result_output",
+              "value": false
+            },
+            {
+              "flag_name": "flag_aimodel_obligations_nosystemicrisk_result_output",
+              "value": false
+            },
+            {
+              "flag_name": "flag_obligations_authorisedrep",
+              "value": true
+            }
+          ]
+        },
+        "2": {},
+        "3": {
+          "set_flags": [
+            {
+              "flag_name": "flag_outofscope_gpai",
+              "value": true
+            },
+            {
+              "flag_name": "flag_aimodel_obligations_nosystemicrisk_result_output",
+              "value": false
+            },
+            {
+              "flag_name": "flag_obligations_authorisedrep",
+              "value": false
+            },
+            {
+              "flag_name": "flag_aimodel_obligations_systemicrisk_result_output",
+              "value": false
+            }
+          ]
+        }
+      }
+    },
+    "QGPAI_3_1": {
+      "original_id": "QGPAI 3.1",
+      "question_id": "QGPAI_3_1",
+      "type": "radio",
+      "routing": [
+        {
+          "conditions": [
+            {
+              "flag_equals": {
+                "flag_name": "flag_risklevel_output_gpai_with_systemic_risk",
+                "value": true
+              }
+            }
+          ],
+          "go_to": "END"
+        },
+        {
+          "conditions": [
+            {
+              "answer_is": 0
+            }
+          ],
+          "go_to": "QGPAI_7"
+        },
+        {
+          "conditions": [
+            {
+              "answer_is": 1
+            }
+          ],
+          "go_to": "END"
+        }
+      ],
+      "answer_flags": {
+        "0": {
+          "set_flags": [
+            {
+              "flag_name": "flag_role_provider_gpai_output",
+              "value": true
+            },
+            {
+              "flag_name": "flag_downstream_modifier",
+              "value": true
+            }
+          ]
+        },
+        "1": {
+          "set_flags": [
+            {
+              "flag_name": "flag_outofscope_gpai",
+              "value": true
+            },
+            {
+              "flag_name": "flag_aimodel_obligations_nosystemicrisk_result_output",
+              "value": false
+            },
+            {
+              "flag_name": "flag_obligations_authorisedrep",
+              "value": false
+            },
+            {
+              "flag_name": "flag_aimodel_obligations_systemicrisk_result_output",
+              "value": false
+            }
+          ]
+        }
+      }
+    },
+    "QGPAI_7": {
+      "original_id": "QGPAI 7",
+      "question_id": "QGPAI_7",
+      "type": "radio",
+      "routing": [
+        {
+          "conditions": [
+            {
+              "answer_is": 0
+            }
+          ],
+          "go_to": "END"
+        },
+        {
+          "conditions": [
+            {
+              "answer_is": 1
+            }
+          ],
+          "go_to": "END"
+        }
+      ],
+      "answer_flags": {
+        "0": {
+          "set_flags": [
+            {
+              "condition": [
+                {
+                  "flag_equals": {
+                    "flag_name": "flag_risklevel_output_gpai_with_systemic_risk",
+                    "value": false
+                  }
+                }
+              ],
+              "flag_name": "flag_obligations_opensource_provider",
+              "value": true
+            },
+            {
+              "flag_name": "flag_aimodel_obligations_nosystemicrisk_result_output",
+              "value": false
+            },
+            {
+              "condition": [
+                {
+                  "flag_equals": {
+                    "flag_name": "flag_risklevel_output_gpai_with_systemic_risk",
+                    "value": false
+                  }
+                },
+                {
+                  "flag_equals": {
+                    "flag_name": "flag_role_authorized_representative_gpai_output",
+                    "value": true
+                  }
+                }
+              ],
+              "flag_name": "flag_obligations_authorisedrep_nosystemicrisk_opensource",
+              "value": true
+            },
+            {
+              "condition": [
+                {
+                  "flag_equals": {
+                    "flag_name": "flag_risklevel_output_gpai_with_systemic_risk",
+                    "value": false
+                  }
+                },
+                {
+                  "flag_equals": {
+                    "flag_name": "flag_role_authorized_representative_gpai_output",
+                    "value": true
+                  }
+                }
+              ],
+              "flag_name": "flag_obligations_authorisedrep",
+              "value": false
+            },
+            {
+              "condition": [
+                {
+                  "flag_equals": {
+                    "flag_name": "flag_risklevel_output_gpai_with_systemic_risk",
+                    "value": false
+                  }
+                },
+                {
+                  "flag_equals": {
+                    "flag_name": "flag_role_authorized_representative_gpai_output",
+                    "value": true
+                  }
+                }
+              ],
+              "flag_name": "flag_obligations_opensource_provider",
+              "value": false
+            }
+          ]
+        },
+        "1": {}
+      }
+    }
+  },
+  "flags_structure": {
+    "flag_outofscope": {
+      "structure_level": "risk_level",
+      "priority_weight": 50
+    },
+    "flag_outofscope_gpai": {
+      "structure_level": "role",
+      "priority_weight": 50
+    },
+    "flag_notaimodel_result_output": {
+      "structure_level": "role",
+      "priority_weight": 50
+    },
+    "flag_aimodel_obligations_result_output": {
+      "structure_level": "risk_level",
+      "priority_weight": 50
+    },
+    "flag_risklevel_output_gpai_with_systemic_risk": {
+      "structure_level": "risk_level",
+      "priority_weight": 50
+    },
+    "flag_risklevel_output_gpai_without_systemic_risk": {
+      "structure_level": "risk_level",
+      "priority_weight": 50
+    },
+    "flag_aimodel_obligations_systemicrisk_result_output": {
+      "structure_level": "obligation",
+      "priority_weight": 50
+    },
+    "flag_aimodel_obligations_nosystemicrisk_result_output": {
+      "structure_level": "obligation",
+      "priority_weight": 50
+    },
+    "flag_obligations_provideranddeployer_ailiteracy": {
+      "structure_level": "obligation",
+      "priority_weight": 98
+    },
+    "flag_role_provider_gpai_output": {
+      "structure_level": "role",
+      "priority_weight": 50
+    },
+    "flag_role_authorized_representative_gpai_output": {
+      "structure_level": "role",
+      "priority_weight": 50
+    },
+    "flag_obligations_gpai_outofscope_solescientific": {
+      "structure_level": "obligation",
+      "priority_weight": 50
+    },
+    "flag_obligations_gpai_outofscope_researchtesting": {
+      "structure_level": "obligation",
+      "priority_weight": 50
+    },
+    "flag_obligations_opensource_provider": {
+      "structure_level": "obligation",
+      "priority_weight": 50
+    },
+    "flag_risklevel_aisystem_output": {
+      "structure_level": "risk_level",
+      "priority_weight": 50
+    },
+    "flag_risklevel_aisystem_nohighrisk_output": {
+      "structure_level": "risk_level",
+      "priority_weight": 50
+    },
+    "flag_risklevel_aisystem_highrisk_output": {
+      "structure_level": "risk_level",
+      "priority_weight": 50
+    },
+    "flag_ai_system_outsidescope": {
+      "structure_level": "risk_level",
+      "priority_weight": 50
+    },
+    "flag_ai_system_role_provider": {
+      "structure_level": "role",
+      "priority_weight": 50
+    },
+    "flag_ai_system_role_deployer": {
+      "structure_level": "role",
+      "priority_weight": 50
+    },
+    "flag_ai_system_role_importer": {
+      "structure_level": "role",
+      "priority_weight": 50
+    },
+    "flag_ai_system_role_distributor": {
+      "structure_level": "role",
+      "priority_weight": 50
+    },
+    "flag_ai_system_role_authorisedrepre": {
+      "structure_level": "role",
+      "priority_weight": 50
+    },
+    "flag_ai_system_role_productmanufacturer": {
+      "structure_level": "role",
+      "priority_weight": 50
+    },
+    "flag_aisystem_role_and_obligation_outofscope": {
+      "structure_level": "role",
+      "priority_weight": 50
+    },
+    "flag_role_distriimportdeployer_becomeprovider_result": {
+      "structure_level": "role",
+      "priority_weight": 50
+    },
+    "flag_role_manutoprovider_output": {
+      "structure_level": "role",
+      "priority_weight": 50
+    },
+    "flag_aisystem_obligations_exclusions_output": {
+      "structure_level": "obligation",
+      "priority_weight": 50
+    },
+    "flag_obligations_prohibitedsystems_result_output": {
+      "structure_level": "obligation",
+      "priority_weight": 50
+    },
+    "flag_obligations_provider_results_high_risk": {
+      "structure_level": "obligation",
+      "priority_weight": 69
+    },
+    "flag_obligations_authorisdrepre_results_high_risk": {
+      "structure_level": "obligation",
+      "priority_weight": 69
+    },
+    "flag_obligations_importer_output": {
+      "structure_level": "obligation",
+      "priority_weight": 69
+    },
+    "flag_obligations_distributor_output": {
+      "structure_level": "obligation",
+      "priority_weight": 69
+    },
+    "flag_obligations_deployer_output": {
+      "structure_level": "obligation",
+      "priority_weight": 69
+    },
+    "flag_ai_system_no_highrisk_frimpactassessement_provider_output": {
+      "structure_level": "obligation",
+      "priority_weight": 68
+    },
+    "flag_fr_impact_assessment_deployer": {
+      "structure_level": "obligation",
+      "priority_weight": 67
+    },
+    "flag_obligation_transparency_provider": {
+      "structure_level": "obligation",
+      "priority_weight": 50
+    },
+    "flag_obligation_transparency_deployer": {
+      "structure_level": "obligation",
+      "priority_weight": 50
+    },
+    "flag_obligations_aisystem_opensource": {
+      "structure_level": "obligation",
+      "priority_weight": 70
+    },
+    "flag_obligations_aisystem_nohighrisk_output": {
+      "structure_level": "obligation",
+      "priority_weight": 50
+    },
+    "flag_obligations_authorisedrep": {
+      "structure_level": "obligation",
+      "priority_weight": 50
+    },
+    "flag_ai_system_obligations_productmanufacturer": {
+      "structure_level": "obligation",
+      "priority_weight": 50
+    },
+    "flag_obligations_provider_section_b_results_high_risk": {
+      "structure_level": "obligation",
+      "priority_weight": 50
+    },
+    "flag_obligations_authorisedrep_nosystemicrisk_opensource": {
+      "structure_level": "obligation",
+      "priority_weight": 50
+    },
+    "flag_downstream_modifier": {
+      "structure_level": "obligation",
+      "priority_weight": 49
+    }
+  }
+}

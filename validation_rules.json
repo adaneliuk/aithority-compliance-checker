@@ -1,0 +1,301 @@
+{
+  "metadata": {
+    "description": "Validation rules for the EU AI Act Compliance Checker",
+    "generated_from": "decision_tree__3_.json analysis",
+    "version": "1.0"
+  },
+  "rules": {
+    "Q1": {
+      "required": true,
+      "type": "single_choice",
+      "min_selections": 1,
+      "max_selections": 1
+    },
+    "QAIS_1_1": {
+      "required": true,
+      "type": "multiple_choice",
+      "min_selections": 1,
+      "max_selections": 6,
+      "mutual_exclusivity": {
+        "rule": "Option 5 ('None of the above') cannot be selected with other options",
+        "exclusive_option": "5",
+        "conflicts_with": ["0", "1", "2", "3", "4"]
+      }
+    },
+    "QAIS_1": {
+      "required": true,
+      "type": "single_choice",
+      "min_selections": 1,
+      "max_selections": 1
+    },
+    "QAIS_2_1": {
+      "required": true,
+      "type": "multiple_choice",
+      "min_selections": 1,
+      "mutual_exclusivity": {
+        "rule": "Option 2 ('None of the above') cannot be selected with other options",
+        "exclusive_option": "2",
+        "conflicts_with": ["0", "1"]
+      }
+    },
+    "QAIS_2_2": {
+      "required": true,
+      "type": "multiple_choice",
+      "min_selections": 1,
+      "mutual_exclusivity": {
+        "rule": "Option 8 ('None of the above') cannot be selected with other options",
+        "exclusive_option": "8",
+        "conflicts_with": ["0", "1", "2", "3", "4", "5", "6", "7"]
+      }
+    },
+    "QAIS_2": {
+      "required": true,
+      "type": "single_choice",
+      "min_selections": 1,
+      "max_selections": 1
+    },
+    "QAIS_3": {
+      "required": true,
+      "type": "multiple_choice",
+      "min_selections": 1,
+      "mutual_exclusivity": {
+        "rule": "Option 4 ('None of the above') cannot be selected with other options",
+        "exclusive_option": "4",
+        "conflicts_with": ["0", "1", "2", "3"]
+      }
+    },
+    "QAIS_4": {
+      "required": true,
+      "type": "multiple_choice",
+      "min_selections": 1,
+      "mutual_exclusivity": {
+        "rule": "Option 4 ('None of the above') cannot be selected with other options",
+        "exclusive_option": "4",
+        "conflicts_with": ["0", "1", "2", "3"]
+      }
+    },
+    "QAIS_5": {
+      "required": true,
+      "type": "multiple_choice",
+      "min_selections": 1,
+      "mutual_exclusivity": {
+        "rule": "Option 8 ('None of the above') cannot be selected with other options",
+        "exclusive_option": "8",
+        "conflicts_with": ["0", "1", "2", "3", "4", "5", "6", "7"]
+      },
+      "short_circuit": {
+        "rule": "Any prohibited practice selected (except 'None') leads immediately to prohibited outcome",
+        "trigger_options": ["0", "1", "2", "3", "4", "5", "6", "7"],
+        "immediate_outcome": "prohibited"
+      }
+    },
+    "QAIS_6": {
+      "required": true,
+      "type": "single_choice",
+      "min_selections": 1,
+      "max_selections": 1
+    },
+    "QAIS_6_1": {
+      "required": true,
+      "type": "multiple_choice",
+      "min_selections": 1,
+      "mutual_exclusivity": {
+        "rule": "Option 4 ('None of the above') cannot be selected with other options",
+        "exclusive_option": "4",
+        "conflicts_with": ["0", "1", "2", "3"]
+      }
+    },
+    "QAIS_6_2": {
+      "required": true,
+      "type": "single_choice",
+      "min_selections": 1,
+      "max_selections": 1
+    },
+    "QAIS_6_3": {
+      "required": true,
+      "type": "single_choice",
+      "min_selections": 1,
+      "max_selections": 1
+    },
+    "QAIS_6_4": {
+      "required": true,
+      "type": "multiple_choice",
+      "min_selections": 1,
+      "mutual_exclusivity": {
+        "rule": "Option 8 ('None of the above') cannot be selected with other options",
+        "exclusive_option": "8",
+        "conflicts_with": ["0", "1", "2", "3", "4", "5", "6", "7"]
+      }
+    },
+    "QAIS_6_4_1": {
+      "required": true,
+      "type": "single_choice",
+      "min_selections": 1,
+      "max_selections": 1
+    },
+    "QAIS_6_4_2": {
+      "required": true,
+      "type": "single_choice",
+      "min_selections": 1,
+      "max_selections": 1
+    },
+    "QAIS_6_4_3": {
+      "required": true,
+      "type": "single_choice",
+      "min_selections": 1,
+      "max_selections": 1
+    },
+    "QAIS_6_4_4": {
+      "required": true,
+      "type": "single_choice",
+      "min_selections": 1,
+      "max_selections": 1
+    },
+    "QAIS_6_4_5": {
+      "required": true,
+      "type": "single_choice",
+      "min_selections": 1,
+      "max_selections": 1
+    },
+    "QAIS_6_4_6": {
+      "required": true,
+      "type": "single_choice",
+      "min_selections": 1,
+      "max_selections": 1
+    },
+    "QAIS_6_4_7": {
+      "required": true,
+      "type": "single_choice",
+      "min_selections": 1,
+      "max_selections": 1
+    },
+    "QAIS_6_5": {
+      "required": true,
+      "type": "single_choice",
+      "min_selections": 1,
+      "max_selections": 1
+    },
+    "QAIS_7": {
+      "required": true,
+      "type": "multiple_choice",
+      "min_selections": 1,
+      "mutual_exclusivity": {
+        "rule": "Option 2 ('None of the above') cannot be selected with other options",
+        "exclusive_option": "2",
+        "conflicts_with": ["0", "1"]
+      }
+    },
+    "QAIS_8": {
+      "required": true,
+      "type": "single_choice",
+      "min_selections": 1,
+      "max_selections": 1
+    },
+    "QGPAI_1": {
+      "required": true,
+      "type": "single_choice",
+      "min_selections": 1,
+      "max_selections": 1
+    },
+    "QGPAI_2": {
+      "required": true,
+      "type": "multiple_choice",
+      "min_selections": 1,
+      "mutual_exclusivity": {
+        "rule": "Option 2 ('None of the above') cannot be selected with other options",
+        "exclusive_option": "2",
+        "conflicts_with": ["0", "1"]
+      }
+    },
+    "QGPAI_3": {
+      "required": true,
+      "type": "single_choice",
+      "min_selections": 1,
+      "max_selections": 1
+    },
+    "QGPAI_4": {
+      "required": true,
+      "type": "single_choice",
+      "min_selections": 1,
+      "max_selections": 1
+    },
+    "QGPAI_5": {
+      "required": true,
+      "type": "single_choice",
+      "min_selections": 1,
+      "max_selections": 1
+    },
+    "QGPAI_6": {
+      "required": true,
+      "type": "single_choice",
+      "min_selections": 1,
+      "max_selections": 1
+    },
+    "QGPAI_7": {
+      "required": true,
+      "type": "single_choice",
+      "min_selections": 1,
+      "max_selections": 1
+    }
+  },
+  "conditional_display": {
+    "description": "These rules determine when questions should be shown based on previous answers and accumulated flags",
+    "rules": {
+      "QAIS_1_1": {
+        "show_if": {
+          "QAIS_1": ["2"]
+        }
+      },
+      "QAIS_2_1": {
+        "show_if": {
+          "QAIS_2": ["1", "2", "3", "4"]
+        }
+      },
+      "QAIS_2_2": {
+        "show_if": {
+          "QAIS_2": ["0", "5"]
+        }
+      },
+      "QAIS_6_4_1": {
+        "show_if": {
+          "QAIS_6_4": ["0"]
+        }
+      },
+      "QAIS_6_4_2": {
+        "show_if": {
+          "QAIS_6_4": ["1"]
+        }
+      },
+      "QAIS_6_4_3": {
+        "show_if": {
+          "QAIS_6_4": ["2"]
+        }
+      },
+      "QAIS_6_4_4": {
+        "show_if": {
+          "QAIS_6_4": ["3"]
+        }
+      },
+      "QAIS_6_4_5": {
+        "show_if": {
+          "QAIS_6_4": ["4"]
+        }
+      },
+      "QAIS_6_4_6": {
+        "show_if": {
+          "QAIS_6_4": ["5"]
+        }
+      },
+      "QAIS_6_4_7": {
+        "show_if": {
+          "QAIS_6_4": ["6"]
+        }
+      }
+    }
+  },
+  "notes": {
+    "general": "All questions are required. Single-choice questions allow exactly 1 selection. Multiple-choice questions allow 1 or more selections.",
+    "exclusive_options": "Questions with 'None of the above' options enforce mutual exclusivity - if 'None' is selected, no other options can be selected.",
+    "short_circuits": "Some answer combinations (like selecting prohibited practices) immediately end the survey and show results."
+  }
+}
