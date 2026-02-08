@@ -678,7 +678,8 @@
         },
         {
           "id": "4",
-          "text": "None of the above / The system performs profiling of natural person"
+          "text": "None of the above / The system performs profiling of natural person",
+          "exclusive": true
         }
       ]
     },

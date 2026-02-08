@@ -1035,24 +1035,6 @@
         {
           "conditions": [
             {
-              "if_any_answer_in": [
-                0,
-                1,
-                2
-              ]
-            },
-            {
-              "flag_equals": {
-                "flag_name": "is_ai_highrisk_permanent",
-                "value": false
-              }
-            }
-          ],
-          "go_to": "QAIS_6_5"
-        },
-        {
-          "conditions": [
-            {
               "flag_equals": {
                 "flag_name": "flag_should_ask_6_4_2",
                 "value": true
@@ -1151,6 +1133,24 @@
               "value": false
             }
           ]
+        },
+        {
+          "conditions": [
+            {
+              "if_any_answer_in": [
+                0,
+                1,
+                2
+              ]
+            },
+            {
+              "flag_equals": {
+                "flag_name": "is_ai_highrisk_permanent",
+                "value": false
+              }
+            }
+          ],
+          "go_to": "QAIS_6_5"
         },
         {
           "go_to": "QAIS_6_hub_evaluation_risk"
@@ -1230,25 +1230,6 @@
         {
           "conditions": [
             {
-              "if_any_answer_in": [
-                0,
-                1,
-                2,
-                3
-              ]
-            },
-            {
-              "flag_equals": {
-                "flag_name": "is_ai_highrisk_permanent",
-                "value": false
-              }
-            }
-          ],
-          "go_to": "QAIS_6_5"
-        },
-        {
-          "conditions": [
-            {
               "flag_equals": {
                 "flag_name": "flag_should_ask_6_4_2",
                 "value": true
@@ -1347,6 +1328,25 @@
               "value": false
             }
           ]
+        },
+        {
+          "conditions": [
+            {
+              "if_any_answer_in": [
+                0,
+                1,
+                2,
+                3
+              ]
+            },
+            {
+              "flag_equals": {
+                "flag_name": "is_ai_highrisk_permanent",
+                "value": false
+              }
+            }
+          ],
+          "go_to": "QAIS_6_5"
         },
         {
           "go_to": "QAIS_6_hub_evaluation_risk"
@@ -1446,23 +1446,6 @@
         {
           "conditions": [
             {
-              "if_any_answer_in": [
-                0,
-                1
-              ]
-            },
-            {
-              "flag_equals": {
-                "flag_name": "is_ai_highrisk_permanent",
-                "value": false
-              }
-            }
-          ],
-          "go_to": "QAIS_6_5"
-        },
-        {
-          "conditions": [
-            {
               "flag_equals": {
                 "flag_name": "flag_should_ask_6_4_2",
                 "value": true
@@ -1561,6 +1544,23 @@
               "value": false
             }
           ]
+        },
+        {
+          "conditions": [
+            {
+              "if_any_answer_in": [
+                0,
+                1
+              ]
+            },
+            {
+              "flag_equals": {
+                "flag_name": "is_ai_highrisk_permanent",
+                "value": false
+              }
+            }
+          ],
+          "go_to": "QAIS_6_5"
         },
         {
           "go_to": "QAIS_6_hub_evaluation_risk"
@@ -1620,25 +1620,6 @@
         {
           "conditions": [
             {
-              "if_any_answer_in": [
-                0,
-                1,
-                2,
-                3
-              ]
-            },
-            {
-              "flag_equals": {
-                "flag_name": "is_ai_highrisk_permanent",
-                "value": false
-              }
-            }
-          ],
-          "go_to": "QAIS_6_5"
-        },
-        {
-          "conditions": [
-            {
               "flag_equals": {
                 "flag_name": "flag_should_ask_6_4_2",
                 "value": true
@@ -1737,6 +1718,25 @@
               "value": false
             }
           ]
+        },
+        {
+          "conditions": [
+            {
+              "if_any_answer_in": [
+                0,
+                1,
+                2,
+                3
+              ]
+            },
+            {
+              "flag_equals": {
+                "flag_name": "is_ai_highrisk_permanent",
+                "value": false
+              }
+            }
+          ],
+          "go_to": "QAIS_6_5"
         },
         {
           "go_to": "QAIS_6_hub_evaluation_risk"
@@ -1836,26 +1836,6 @@
         {
           "conditions": [
             {
-              "if_any_answer_in": [
-                0,
-                1,
-                2,
-                3,
-                4
-              ]
-            },
-            {
-              "flag_equals": {
-                "flag_name": "is_ai_highrisk_permanent",
-                "value": false
-              }
-            }
-          ],
-          "go_to": "QAIS_6_5"
-        },
-        {
-          "conditions": [
-            {
               "flag_equals": {
                 "flag_name": "flag_should_ask_6_4_2",
                 "value": true
@@ -1954,6 +1934,26 @@
               "value": false
             }
           ]
+        },
+        {
+          "conditions": [
+            {
+              "if_any_answer_in": [
+                0,
+                1,
+                2,
+                3,
+                4
+              ]
+            },
+            {
+              "flag_equals": {
+                "flag_name": "is_ai_highrisk_permanent",
+                "value": false
+              }
+            }
+          ],
+          "go_to": "QAIS_6_5"
         },
         {
           "go_to": "QAIS_6_hub_evaluation_risk"
@@ -2073,25 +2073,6 @@
         {
           "conditions": [
             {
-              "if_any_answer_in": [
-                0,
-                1,
-                2,
-                3
-              ]
-            },
-            {
-              "flag_equals": {
-                "flag_name": "is_ai_highrisk_permanent",
-                "value": false
-              }
-            }
-          ],
-          "go_to": "QAIS_6_5"
-        },
-        {
-          "conditions": [
-            {
               "flag_equals": {
                 "flag_name": "flag_should_ask_6_4_2",
                 "value": true
@@ -2190,6 +2171,25 @@
               "value": false
             }
           ]
+        },
+        {
+          "conditions": [
+            {
+              "if_any_answer_in": [
+                0,
+                1,
+                2,
+                3
+              ]
+            },
+            {
+              "flag_equals": {
+                "flag_name": "is_ai_highrisk_permanent",
+                "value": false
+              }
+            }
+          ],
+          "go_to": "QAIS_6_5"
         },
         {
           "go_to": "QAIS_6_hub_evaluation_risk"
@@ -2289,23 +2289,6 @@
         {
           "conditions": [
             {
-              "if_any_answer_in": [
-                0,
-                1
-              ]
-            },
-            {
-              "flag_equals": {
-                "flag_name": "is_ai_highrisk_permanent",
-                "value": false
-              }
-            }
-          ],
-          "go_to": "QAIS_6_5"
-        },
-        {
-          "conditions": [
-            {
               "flag_equals": {
                 "flag_name": "flag_should_ask_6_4_2",
                 "value": true
@@ -2404,6 +2387,23 @@
               "value": false
             }
           ]
+        },
+        {
+          "conditions": [
+            {
+              "if_any_answer_in": [
+                0,
+                1
+              ]
+            },
+            {
+              "flag_equals": {
+                "flag_name": "is_ai_highrisk_permanent",
+                "value": false
+              }
+            }
+          ],
+          "go_to": "QAIS_6_5"
         },
         {
           "go_to": "QAIS_6_hub_evaluation_risk"
@@ -2868,6 +2868,7 @@
           ]
         },
         "4": {
+          "exclusive": true,
           "set_flags": [
             {
               "flag_name": "flag_risklevel_aisystem_highrisk_output",
