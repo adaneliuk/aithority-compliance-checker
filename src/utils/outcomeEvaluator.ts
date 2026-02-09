@@ -74,6 +74,8 @@ export function getPrimaryRiskLevel(activeOutcomes: Outcome[]): string {
     'prohibited',
     'systemic_risk',
     'high_risk',
+    'limited_risk',
+    'minimal_risk',
     'obligations',
     'transparency_obligations',
     'open_source_exception',

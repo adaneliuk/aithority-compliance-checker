@@ -174,8 +174,8 @@
       "id": "flag_risklevel_aisystem_nohighrisk_output",
       "structure_level": "risk_level",
       "priority_weight": 50,
-      "risk_level": "high_risk",
-      "display_color": "orange",
+      "risk_level": "limited_risk",
+      "display_color": "#ffc107",
       "text": "Your AI system is likely not considered as high-risk. It is likely that your AI system poses no to minimal risks.",
       "applicable_articles": [],
       "is_empty": false
@@ -486,8 +486,8 @@
       "id": "flag_obligations_aisystem_nohighrisk_output",
       "structure_level": "obligation",
       "priority_weight": 50,
-      "risk_level": "high_risk",
-      "display_color": "orange",
+      "risk_level": "limited_risk",
+      "display_color": "#ffc107",
       "text": "Your AI system is likely not considered as high-risk. It is likely that your AI system does not have to comply with Chapter 3 of the AI Act, which relates to high-risk AI systems.",
       "applicable_articles": [],
       "is_empty": false
