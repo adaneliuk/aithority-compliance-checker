@@ -245,6 +245,8 @@ export type Flags = Record<string, FlagValue>;
 export type Answers = Record<string, number[]>;
 
 export interface WizardState {
+  phase: WizardPhase;
+  systemInfo: SystemInfo;
   currentNodeId: string;
   answers: Answers;
   flags: Flags;
@@ -264,3 +266,20 @@ export interface GroupedOutcomes {
   risk_level: Outcome[];
   obligation: Outcome[];
 }
+
+// System Information Types
+export interface SystemInfoField {
+  value: string;
+  touched: boolean;
+  error: string | null;
+}
+
+export interface SystemInfo {
+  systemName: SystemInfoField;
+  systemDescription: SystemInfoField;
+  useCase: SystemInfoField;
+  llmVersion: SystemInfoField;
+  dataUse: SystemInfoField;
+}
+
+export type WizardPhase = 'systemInfo' | 'quiz' | 'results';

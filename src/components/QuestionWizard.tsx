@@ -7,6 +7,8 @@ import { QuestionRenderer } from './QuestionRenderer';
 import { ProgressTracker } from './ProgressTracker';
 import { NavigationButtons } from './NavigationButtons';
 import { OutcomeDisplay } from './OutcomeDisplay';
+import { SystemInformationForm } from './SystemInformationForm';
+import type { SystemInfo } from '../types';
 
 export const QuestionWizard: React.FC = () => {
   const {
@@ -18,6 +20,11 @@ export const QuestionWizard: React.FC = () => {
     addToHistory,
     resetWizard,
     getAnswersForQuestion,
+    setPhase,
+    updateSystemInfoField,
+    touchSystemInfoField,
+    validateSystemInfoField,
+    isSystemInfoValid,
   } = useWizardState();
 
   const {
@@ -127,9 +134,13 @@ export const QuestionWizard: React.FC = () => {
 
   // Handle back navigation
   const handleBack = useCallback(() => {
+    if (state.history.length === 0 && state.phase === 'quiz') {
+      setPhase('systemInfo');
+      return;
+    }
     goBack();
     setValidationErrors([]);
-  }, [goBack]);
+  }, [goBack, state.history.length, state.phase, setPhase]);
 
   // Handle restart
   const handleRestart = useCallback(() => {
@@ -145,7 +156,30 @@ export const QuestionWizard: React.FC = () => {
   }, [currentQuestion, currentAnswers]);
 
   // Check if can go back
-  const canGoBack = state.history.length > 0;
+  const canGoBack = state.phase === 'quiz';
+
+  // SystemInfo handlers
+  const handleSystemInfoFieldChange = useCallback((field: keyof SystemInfo, value: string) => {
+    updateSystemInfoField(field, value);
+  }, [updateSystemInfoField]);
+
+  const handleSystemInfoFieldBlur = useCallback((field: keyof SystemInfo) => {
+    touchSystemInfoField(field);
+    validateSystemInfoField(field);
+  }, [touchSystemInfoField, validateSystemInfoField]);
+
+  const handleSystemInfoNext = useCallback(() => {
+    const fields: (keyof SystemInfo)[] = [
+      'systemName', 'systemDescription', 'useCase', 'llmVersion', 'dataUse',
+    ];
+    fields.forEach(field => {
+      touchSystemInfoField(field);
+      validateSystemInfoField(field);
+    });
+    if (isSystemInfoValid()) {
+      setPhase('quiz');
+    }
+  }, [touchSystemInfoField, validateSystemInfoField, isSystemInfoValid, setPhase]);
 
   // Process hub nodes on mount and when state changes
   useEffect(() => {
@@ -160,6 +194,21 @@ export const QuestionWizard: React.FC = () => {
       }
     }
   }, [state.currentNodeId, state.flags, getNode, processHubNodes, applyFlags, setCurrentNode]);
+
+  // Show system info form if in systemInfo phase
+  if (state.phase === 'systemInfo') {
+    return (
+      <div>
+        <SystemInformationForm
+          systemInfo={state.systemInfo}
+          onFieldChange={handleSystemInfoFieldChange}
+          onFieldBlur={handleSystemInfoFieldBlur}
+          onNext={handleSystemInfoNext}
+          isValid={isSystemInfoValid()}
+        />
+      </div>
+    );
+  }
 
   // Show results if complete
   if (state.isComplete || state.currentNodeId === 'END') {

@@ -1,8 +1,24 @@
 import { useState, useCallback } from 'react';
-import type { WizardState, Flags, HistoryEntry, SetFlag } from '../types';
+import type { WizardState, Flags, HistoryEntry, SetFlag, SystemInfo, SystemInfoField, WizardPhase } from '../types';
 import { decisionTree } from '../data';
 
+const createEmptyField = (): SystemInfoField => ({
+  value: '',
+  touched: false,
+  error: null,
+});
+
+const initialSystemInfo: SystemInfo = {
+  systemName: createEmptyField(),
+  systemDescription: createEmptyField(),
+  useCase: createEmptyField(),
+  llmVersion: createEmptyField(),
+  dataUse: createEmptyField(),
+};
+
 const initialState: WizardState = {
+  phase: 'systemInfo' as WizardPhase,
+  systemInfo: initialSystemInfo,
   currentNodeId: decisionTree.start,
   answers: {},
   flags: {},
@@ -20,6 +36,11 @@ export interface UseWizardStateReturn {
   completeWizard: () => void;
   resetWizard: () => void;
   getAnswersForQuestion: (questionId: string) => number[];
+  setPhase: (phase: WizardPhase) => void;
+  updateSystemInfoField: (field: keyof SystemInfo, value: string) => void;
+  touchSystemInfoField: (field: keyof SystemInfo) => void;
+  validateSystemInfoField: (field: keyof SystemInfo) => void;
+  isSystemInfoValid: () => boolean;
 }
 
 export function useWizardState(): UseWizardStateReturn {
@@ -94,13 +115,88 @@ export function useWizardState(): UseWizardStateReturn {
   }, []);
 
   const resetWizard = useCallback(() => {
-    setState(initialState);
+    setState(prev => ({
+      ...initialState,
+      phase: 'systemInfo' as WizardPhase,
+      systemInfo: prev.systemInfo,
+    }));
     setHistoryStack([]);
   }, []);
 
   const getAnswersForQuestion = useCallback((questionId: string): number[] => {
     return state.answers[questionId] || [];
   }, [state.answers]);
+
+  const setPhase = useCallback((phase: WizardPhase) => {
+    setState(prev => ({ ...prev, phase }));
+  }, []);
+
+  const updateSystemInfoField = useCallback((field: keyof SystemInfo, value: string) => {
+    setState(prev => ({
+      ...prev,
+      systemInfo: {
+        ...prev.systemInfo,
+        [field]: {
+          ...prev.systemInfo[field],
+          value,
+          error: null,
+        },
+      },
+    }));
+  }, []);
+
+  const touchSystemInfoField = useCallback((field: keyof SystemInfo) => {
+    setState(prev => ({
+      ...prev,
+      systemInfo: {
+        ...prev.systemInfo,
+        [field]: {
+          ...prev.systemInfo[field],
+          touched: true,
+        },
+      },
+    }));
+  }, []);
+
+  const validateSystemInfoField = useCallback((field: keyof SystemInfo) => {
+    setState(prev => {
+      const fieldData = prev.systemInfo[field];
+      let error: string | null = null;
+
+      if (!fieldData.value.trim()) {
+        error = 'This field is required';
+      } else if (fieldData.value.trim().length < 10) {
+        error = 'Minimum 10 characters required';
+      } else if (fieldData.value.length > 5000) {
+        error = 'Maximum 5000 characters exceeded';
+      }
+
+      return {
+        ...prev,
+        systemInfo: {
+          ...prev.systemInfo,
+          [field]: {
+            ...fieldData,
+            touched: true,
+            error,
+          },
+        },
+      };
+    });
+  }, []);
+
+  const isSystemInfoValid = useCallback((): boolean => {
+    const { systemInfo } = state;
+    const fields = Object.values(systemInfo) as SystemInfoField[];
+
+    for (const field of fields) {
+      const value = field.value.trim();
+      if (!value || value.length < 10 || value.length > 5000) {
+        return false;
+      }
+    }
+    return true;
+  }, [state.systemInfo]);
 
   return {
     state,
@@ -112,5 +208,10 @@ export function useWizardState(): UseWizardStateReturn {
     completeWizard,
     resetWizard,
     getAnswersForQuestion,
+    setPhase,
+    updateSystemInfoField,
+    touchSystemInfoField,
+    validateSystemInfoField,
+    isSystemInfoValid,
   };
 }
