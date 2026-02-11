@@ -3365,7 +3365,7 @@
           "go_to": "QAIS_8"
         },
         {
-          "go_to": "END"
+          "go_to": "QT_hub_entry"
         }
       ],
       "answer_flags": {
@@ -3419,7 +3419,7 @@
           "go_to": "QAIS_8"
         },
         {
-          "go_to": "END"
+          "go_to": "QT_hub_entry"
         }
       ],
       "answer_flags": {
@@ -3902,6 +3902,101 @@
           ]
         },
         "1": {}
+      }
+    },
+    "QT_hub_entry": {
+      "original_id": "QT_hub_entry",
+      "question_id": "QT_hub_entry",
+      "type": "hub",
+      "routing": [
+        {
+          "conditions": [{ "flag_equals": { "flag_name": "flag_obligations_provider_results_transparency_output", "value": true } }],
+          "go_to": "QT_1"
+        },
+        { "go_to": "END" }
+      ]
+    },
+    "QT_1": {
+      "original_id": "QT 1",
+      "question_id": "QT_1",
+      "type": "radio",
+      "routing": [
+        { "go_to": "QT_hub_disclosure" }
+      ],
+      "answer_flags": {
+        "0": { "set_flags": [{ "flag_name": "flag_transparency_status", "value": "compliant" }] },
+        "1": { "set_flags": [{ "flag_name": "flag_transparency_status", "value": "partial" }] },
+        "2": { "set_flags": [{ "flag_name": "flag_transparency_status", "value": "not_started" }] },
+        "3": { "set_flags": [{ "flag_name": "flag_transparency_status", "value": "unsure" }] }
+      }
+    },
+    "QT_hub_disclosure": {
+      "original_id": "QT_hub_disclosure",
+      "question_id": "QT_hub_disclosure",
+      "type": "hub",
+      "routing": [
+        {
+          "conditions": [{ "flag_equals": { "flag_name": "flag_transparency_interaction", "value": true } }],
+          "go_to": "QT_2"
+        },
+        { "go_to": "QT_hub_synthetic" }
+      ]
+    },
+    "QT_2": {
+      "original_id": "QT 2",
+      "question_id": "QT_2",
+      "type": "checkbox",
+      "routing": [
+        { "go_to": "QT_hub_synthetic" }
+      ],
+      "answer_flags": {
+        "0": { "set_flags": [{ "flag_name": "flag_disclosure_text_notification", "value": true }] },
+        "1": { "set_flags": [{ "flag_name": "flag_disclosure_visual_indicator", "value": true }] },
+        "2": { "set_flags": [{ "flag_name": "flag_disclosure_audio", "value": true }] },
+        "3": { "set_flags": [{ "flag_name": "flag_disclosure_documentation_only", "value": true }] },
+        "4": { "set_flags": [{ "flag_name": "flag_disclosure_missing", "value": true }], "exclusive": true }
+      }
+    },
+    "QT_hub_synthetic": {
+      "original_id": "QT_hub_synthetic",
+      "question_id": "QT_hub_synthetic",
+      "type": "hub",
+      "routing": [
+        {
+          "conditions": [{ "flag_equals": { "flag_name": "flag_transparency_synthetic_content", "value": true } }],
+          "go_to": "QT_3"
+        },
+        { "go_to": "QT_4" }
+      ]
+    },
+    "QT_3": {
+      "original_id": "QT 3",
+      "question_id": "QT_3",
+      "type": "checkbox",
+      "routing": [
+        { "go_to": "QT_4" }
+      ],
+      "answer_flags": {
+        "0": { "set_flags": [{ "flag_name": "flag_labeling_metadata", "value": true }] },
+        "1": { "set_flags": [{ "flag_name": "flag_labeling_visible", "value": true }] },
+        "2": { "set_flags": [{ "flag_name": "flag_labeling_provenance", "value": true }] },
+        "3": { "set_flags": [{ "flag_name": "flag_labeling_c2pa", "value": true }] },
+        "4": { "set_flags": [{ "flag_name": "flag_labeling_missing", "value": true }], "exclusive": true }
+      }
+    },
+    "QT_4": {
+      "original_id": "QT 4",
+      "question_id": "QT_4",
+      "type": "radio",
+      "routing": [
+        { "go_to": "END" }
+      ],
+      "answer_flags": {
+        "0": { "set_flags": [{ "flag_name": "flag_timeline_compliant", "value": true }] },
+        "1": { "set_flags": [{ "flag_name": "flag_timeline_3months", "value": true }] },
+        "2": { "set_flags": [{ "flag_name": "flag_timeline_6months", "value": true }] },
+        "3": { "set_flags": [{ "flag_name": "flag_timeline_12months", "value": true }] },
+        "4": { "set_flags": [{ "flag_name": "flag_timeline_none", "value": true }] }
       }
     }
   },

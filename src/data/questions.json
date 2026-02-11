@@ -875,6 +875,65 @@
           "text": "No"
         }
       ]
+    },
+    "QT_1": {
+      "id": "QT_1",
+      "original_id": "QT 1",
+      "text": "Have you implemented the required transparency measures for your AI system?",
+      "section_title": "Transparency Implementation",
+      "type": "single_choice",
+      "required": true,
+      "options": [
+        { "id": "0", "text": "Yes, fully implemented" },
+        { "id": "1", "text": "Partially implemented" },
+        { "id": "2", "text": "Not yet implemented" },
+        { "id": "3", "text": "Unsure what's required" }
+      ]
+    },
+    "QT_2": {
+      "id": "QT_2",
+      "original_id": "QT 2",
+      "text": "How do you inform users they are interacting with an AI system?",
+      "section_title": "User Disclosure",
+      "type": "multiple_choice",
+      "required": true,
+      "options": [
+        { "id": "0", "text": "Clear text notification before interaction" },
+        { "id": "1", "text": "Persistent visual indicator during interaction" },
+        { "id": "2", "text": "Audio disclosure for voice interfaces" },
+        { "id": "3", "text": "Documentation/terms of service only" },
+        { "id": "4", "text": "Not currently disclosed", "exclusive": true }
+      ]
+    },
+    "QT_3": {
+      "id": "QT_3",
+      "original_id": "QT 3",
+      "text": "How do you label AI-generated synthetic content?",
+      "section_title": "Synthetic Content Labeling",
+      "type": "multiple_choice",
+      "required": true,
+      "options": [
+        { "id": "0", "text": "Machine-readable metadata/watermarks" },
+        { "id": "1", "text": "Visible labels or disclaimers" },
+        { "id": "2", "text": "Content provenance tracking" },
+        { "id": "3", "text": "C2PA or similar standard" },
+        { "id": "4", "text": "Not currently labeled", "exclusive": true }
+      ]
+    },
+    "QT_4": {
+      "id": "QT_4",
+      "original_id": "QT 4",
+      "text": "When do you plan to achieve full transparency compliance?",
+      "section_title": "Compliance Timeline",
+      "type": "single_choice",
+      "required": true,
+      "options": [
+        { "id": "0", "text": "Already compliant" },
+        { "id": "1", "text": "Within 3 months" },
+        { "id": "2", "text": "Within 6 months" },
+        { "id": "3", "text": "Within 12 months" },
+        { "id": "4", "text": "No timeline established" }
+      ]
     }
   }
 }

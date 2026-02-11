@@ -236,7 +236,29 @@
       "type": "single_choice",
       "min_selections": 1,
       "max_selections": 1
-    }
+    },
+    "QT_1": { "required": true, "type": "single_choice", "min_selections": 1 },
+    "QT_2": {
+      "required": true,
+      "type": "multiple_choice",
+      "min_selections": 1,
+      "mutual_exclusivity": {
+        "rule": "exclusive_none",
+        "exclusive_option": "4",
+        "conflicts_with": ["0", "1", "2", "3"]
+      }
+    },
+    "QT_3": {
+      "required": true,
+      "type": "multiple_choice",
+      "min_selections": 1,
+      "mutual_exclusivity": {
+        "rule": "exclusive_none",
+        "exclusive_option": "4",
+        "conflicts_with": ["0", "1", "2", "3"]
+      }
+    },
+    "QT_4": { "required": true, "type": "single_choice", "min_selections": 1 }
   },
   "conditional_display": {
     "description": "These rules determine when questions should be shown based on previous answers and accumulated flags",

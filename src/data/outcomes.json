@@ -568,6 +568,36 @@
         53
       ],
       "is_empty": false
+    },
+    "flag_disclosure_missing": {
+      "id": "flag_disclosure_missing",
+      "structure_level": "obligation",
+      "priority_weight": 40,
+      "risk_level": "warning",
+      "display_color": "orange",
+      "text": "**Action Required**: You must implement user disclosure mechanisms under Article 50(1). Users must be informed they are interacting with an AI system in a clear and timely manner.",
+      "applicable_articles": [50],
+      "is_empty": false
+    },
+    "flag_labeling_missing": {
+      "id": "flag_labeling_missing",
+      "structure_level": "obligation",
+      "priority_weight": 40,
+      "risk_level": "warning",
+      "display_color": "orange",
+      "text": "**Action Required**: You must label AI-generated synthetic content under Article 50(2). Content must be marked in a machine-readable format and be detectable as artificially generated.",
+      "applicable_articles": [50],
+      "is_empty": false
+    },
+    "flag_timeline_none": {
+      "id": "flag_timeline_none",
+      "structure_level": "obligation",
+      "priority_weight": 30,
+      "risk_level": "info",
+      "display_color": "blue",
+      "text": "**Recommendation**: Establish a compliance timeline. Transparency obligations under Article 50 have specific deadlines based on the AI Act transition periods.",
+      "applicable_articles": [50, 113],
+      "is_empty": false
     }
   }
 }
