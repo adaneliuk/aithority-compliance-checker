@@ -129,45 +129,73 @@
     },
     "QAIS_6_4_1": {
       "required": true,
-      "type": "single_choice",
+      "type": "multiple_choice",
       "min_selections": 1,
-      "max_selections": 1
+      "mutual_exclusivity": {
+        "rule": "exclusive_none",
+        "exclusive_option": "3",
+        "conflicts_with": ["0", "1", "2"]
+      }
     },
     "QAIS_6_4_2": {
       "required": true,
-      "type": "single_choice",
+      "type": "multiple_choice",
       "min_selections": 1,
-      "max_selections": 1
+      "mutual_exclusivity": {
+        "rule": "exclusive_none",
+        "exclusive_option": "4",
+        "conflicts_with": ["0", "1", "2", "3"]
+      }
     },
     "QAIS_6_4_3": {
       "required": true,
-      "type": "single_choice",
+      "type": "multiple_choice",
       "min_selections": 1,
-      "max_selections": 1
+      "mutual_exclusivity": {
+        "rule": "exclusive_none",
+        "exclusive_option": "2",
+        "conflicts_with": ["0", "1"]
+      }
     },
     "QAIS_6_4_4": {
       "required": true,
-      "type": "single_choice",
+      "type": "multiple_choice",
       "min_selections": 1,
-      "max_selections": 1
+      "mutual_exclusivity": {
+        "rule": "exclusive_none",
+        "exclusive_option": "4",
+        "conflicts_with": ["0", "1", "2", "3"]
+      }
     },
     "QAIS_6_4_5": {
       "required": true,
-      "type": "single_choice",
+      "type": "multiple_choice",
       "min_selections": 1,
-      "max_selections": 1
+      "mutual_exclusivity": {
+        "rule": "exclusive_none",
+        "exclusive_option": "5",
+        "conflicts_with": ["0", "1", "2", "3", "4"]
+      }
     },
     "QAIS_6_4_6": {
       "required": true,
-      "type": "single_choice",
+      "type": "multiple_choice",
       "min_selections": 1,
-      "max_selections": 1
+      "mutual_exclusivity": {
+        "rule": "exclusive_none",
+        "exclusive_option": "4",
+        "conflicts_with": ["0", "1", "2", "3"]
+      }
     },
     "QAIS_6_4_7": {
       "required": true,
-      "type": "single_choice",
+      "type": "multiple_choice",
       "min_selections": 1,
-      "max_selections": 1
+      "mutual_exclusivity": {
+        "rule": "exclusive_none",
+        "exclusive_option": "2",
+        "conflicts_with": ["0", "1"]
+      }
     },
     "QAIS_6_5": {
       "required": true,
