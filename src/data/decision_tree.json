@@ -3374,6 +3374,10 @@
             {
               "flag_name": "flag_obligation_transparency_provider",
               "value": true
+            },
+            {
+              "flag_name": "flag_transparency_interaction",
+              "value": true
             }
           ]
         },
@@ -3381,6 +3385,10 @@
           "set_flags": [
             {
               "flag_name": "flag_obligation_transparency_provider",
+              "value": true
+            },
+            {
+              "flag_name": "flag_transparency_synthetic_content",
               "value": true
             }
           ]
@@ -3436,6 +3444,10 @@
             {
               "flag_name": "flag_obligation_transparency_deployer",
               "value": true
+            },
+            {
+              "flag_name": "flag_transparency_synthetic_content",
+              "value": true
             }
           ]
         },
@@ -3443,6 +3455,10 @@
           "set_flags": [
             {
               "flag_name": "flag_obligation_transparency_deployer",
+              "value": true
+            },
+            {
+              "flag_name": "flag_transparency_synthetic_content",
               "value": true
             }
           ]
@@ -3910,7 +3926,11 @@
       "type": "hub",
       "routing": [
         {
-          "conditions": [{ "flag_equals": { "flag_name": "flag_obligations_provider_results_transparency_output", "value": true } }],
+          "conditions": [{ "flag_equals": { "flag_name": "flag_obligation_transparency_provider", "value": true } }],
+          "go_to": "QT_1"
+        },
+        {
+          "conditions": [{ "flag_equals": { "flag_name": "flag_obligation_transparency_deployer", "value": true } }],
           "go_to": "QT_1"
         },
         { "go_to": "END" }
